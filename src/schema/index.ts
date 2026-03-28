@@ -25,7 +25,7 @@ export const OrderIdSchema = z.object({
 });
 
 export const SearchProductSchema = z.object({
-  search: z.string().trim().min(1, "La búsqueda no puede estar vacía"),
+  search: z.string().trim().min(1, "La búsqueda no puede estar vacía")
 });
 
 export const ProductSchema = z.object({
