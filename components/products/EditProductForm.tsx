@@ -1,23 +1,29 @@
-'use client';
+"use client";
 
-import { createProductAction } from "@/actions/create-product-action";
+import { updateProduct } from "@/actions/update-product-action";
 import { ProductSchema } from "@/src/schema";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "react-toastify";
+import { useParams } from "next/navigation";
 
-export default function AddProductForm({ children }: { children?: React.ReactNode }) {
-
-  const router = useRouter()
+export default function EditProductForm({
+  children,
+}: {
+  children?: React.ReactNode;
+}) {
+  const router = useRouter();
+  const params = useParams();
+  const id = +params.id!
 
   const handleSubmit = async (formData: FormData) => {
     // console.log('desde handleSubmit');
     const data = {
-      name: formData.get('name')?.toString() || '',
-      price: Number(formData.get('price')),
-      categoryId: Number(formData.get('categoryId')),
-      description: formData.get('description')?.toString() || '',
-      image: formData.get('image')?.toString() || '',
+      name: formData.get("name")?.toString() || "",
+      price: Number(formData.get("price")),
+      categoryId: Number(formData.get("categoryId")),
+      description: formData.get("description")?.toString() || "",
+      image: formData.get("image")?.toString() || "",
     };
 
     const result = ProductSchema.safeParse(data);
@@ -29,17 +35,17 @@ export default function AddProductForm({ children }: { children?: React.ReactNod
       return;
     }
     // console.log(result.data);
-    const response = await createProductAction(result.data);
+    const response = await updateProduct(result.data, id);
     // console.log(response);
     if (response?.errors) {
-      response.errors.forEach(issue => {
+      response.errors.forEach((issue) => {
         toast.error(issue.message);
       });
       return;
     }
-    toast.success("Producto creado correctamente");
-    router.push('/admin/products')
-  }
+    toast.success("Producto actualizado correctamente");
+    router.push("/admin/products");
+  };
 
   return (
     <div className="bg-white mt-10 px-5 py-10 rounded-md shadow-md max-w-3xl mx-auto">
@@ -47,7 +53,7 @@ export default function AddProductForm({ children }: { children?: React.ReactNod
         {children}
         <input
           type="submit"
-          value="Registrar producto"
+          value="Guardar cambios"
           className="bg-amber-400 text-white py-2 px-4 rounded-md hover:bg-amber-500 w-full cursor-pointer hover:shadow-md transition"
         />
       </form>

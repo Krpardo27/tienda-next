@@ -1,44 +1,50 @@
 import Link from "next/link";
-import React from "react";
-
-type ProductsPaginationProps = {
-  page: number;
-  totalPages: number;
-};
+import { PaginationProps } from "@/src/types";
 
 export default function ProductsPagination({
   page,
   totalPages,
-}: ProductsPaginationProps) {
-
+}: PaginationProps) {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-  console.log(pages);
+
+  const start = Math.max(page - 2, 0);
+  const end = Math.min(page + 1, totalPages);
+
+  const visiblePages = pages.slice(start, end + 1);
 
   return (
-    <nav className="flex justify-center py-10">
+    <nav className="flex justify-center py-10 gap-1">
       {page > 1 && (
         <Link
+          scroll={false}
           href={`/admin/products?page=${page - 1}`}
-          className="bg-white px-4 py-2 text-gray-900 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0"
+          className="px-3 py-2 bg-white border rounded hover:bg-zinc-100"
         >
           &laquo;
         </Link>
       )}
-      {pages.map((currentPage) => (
+
+      {visiblePages.map((p) => (
         <Link
-          key={currentPage}
-          href={`/admin/products?page=${currentPage}`}
-          className={`${page === currentPage ? "bg-amber-400 text-white" : "bg-white text-gray-900 "
-            } px-4 py-2 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0`}
+          key={p}
+          scroll={false}
+          href={`/admin/products?page=${p}`}
+          aria-current={page === p ? "page" : undefined}
+          className={`px-3 py-2 border rounded ${
+            page === p
+              ? "bg-amber-400 text-white pointer-events-none"
+              : "bg-white text-gray-900 hover:bg-zinc-100"
+          }`}
         >
-          {currentPage}
+          {p}
         </Link>
       ))}
 
       {page < totalPages && (
         <Link
+          scroll={false}
           href={`/admin/products?page=${page + 1}`}
-          className="bg-white px-4 py-2 text-gray-900 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0"
+          className="px-3 py-2 bg-white border rounded hover:bg-zinc-100"
         >
           &raquo;
         </Link>

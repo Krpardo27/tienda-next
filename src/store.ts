@@ -1,105 +1,121 @@
 import { create } from "zustand";
-import { OrderItem } from "./types";
-import { Product } from "./generated/prisma/client";
+import { CartItem } from "./types";
+import { persist } from "zustand/middleware";
 
 interface Store {
-  order: OrderItem[];
+  order: CartItem[];
+  favorites: number[];
+  hydrated: boolean;
 
-  addToCart: (product: Product) => void;
-  increaseQuantity: (id: Product["id"]) => void;
-  decreaseQuantity: (id: Product["id"]) => void;
-  removeItem: (id: Product["id"]) => void;
+  addToCart: (item: CartItem) => void;
+  increaseQuantity: (id: number) => void;
+  decreaseQuantity: (id: number) => void;
+  removeItem: (id: number) => void;
   clearCart: () => void;
 
+  toggleFavorite: (id: number) => void;
   getTotal: () => number;
+
+  setHydrated: () => void;
 }
 
-export const useStore = create<Store>((set, get) => ({
-  order: [],
+export const useStore = create<Store>()(
+  persist(
+    (set, get) => ({
+      order: [],
+      favorites: [],
+      hydrated: false,
 
-  // ✅ ADD
-  addToCart: (product) => {
-    set((state) => {
-      const existing = state.order.find((item) => item.id === product.id);
+      // 🔥 HYDRATION FIX
+      setHydrated: () => set({ hydrated: true }),
 
-      if (existing) {
-        return {
-          order: state.order.map((item) =>
-            item.id === product.id
-              ? {
-                  ...item,
-                  quantity: item.quantity + 1,
-                  subtotal: (item.quantity + 1) * item.price,
-                }
-              : item,
-          ),
-        };
-      }
+      addToCart: (item) => {
+        const safePrice = Number(item.price);
+        const safeQuantity = Number(item.quantity);
 
-      const { id, name, price, image } = product;
+        if (isNaN(safePrice) || isNaN(safeQuantity)) {
+          console.error("Item inválido en carrito", item);
+          return;
+        }
 
-      return {
-        order: [
-          ...state.order,
-          {
-            id,
-            name,
-            price,
-            image,
-            quantity: 1,
-            subtotal: price,
-          },
-        ],
-      };
-    });
-  },
+        set((state) => {
+          const existing = state.order.find((p) => p.id === item.id);
 
-  // ✅ INCREASE
-  increaseQuantity: (id) => {
-    set((state) => ({
-      order: state.order.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              quantity: item.quantity + 1,
-              subtotal: (item.quantity + 1) * item.price,
-            }
-          : item,
-      ),
-    }));
-  },
+          if (existing) {
+            return {
+              order: state.order.map((p) =>
+                p.id === item.id ? { ...p, quantity: p.quantity + 1 } : p,
+              ),
+            };
+          }
 
-  // ✅ DECREASE (elimina si llega a 0)
-  decreaseQuantity: (id) => {
-    set((state) => ({
-      order: state.order
-        .map((item) =>
-          item.id === id
-            ? {
+          return {
+            order: [
+              ...state.order,
+              {
                 ...item,
-                quantity: item.quantity - 1,
-                subtotal: (item.quantity - 1) * item.price,
-              }
-            : item,
-        )
-        .filter((item) => item.quantity > 0),
-    }));
-  },
+                price: safePrice, // 🔥 normalizado
+                quantity: safeQuantity,
+              },
+            ],
+          };
+        });
+      },
 
-  // ✅ REMOVE directo
-  removeItem: (id) => {
-    set((state) => ({
-      order: state.order.filter((item) => item.id !== id),
-    }));
-  },
+      increaseQuantity: (id) => {
+        set((state) => ({
+          order: state.order.map((item) =>
+            item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
+          ),
+        }));
+      },
 
-  // ✅ CLEAR
-  clearCart: () => {
-    set(() => ({ order: [] }));
-  },
+      decreaseQuantity: (id) => {
+        set((state) => ({
+          order: state.order
+            .map((item) =>
+              item.id === id ? { ...item, quantity: item.quantity - 1 } : item,
+            )
+            .filter((item) => item.quantity > 0),
+        }));
+      },
 
-  // ✅ TOTAL (derivado)
-  getTotal: () => {
-    return get().order.reduce((acc, item) => acc + item.subtotal, 0);
-  },
-}));
+      removeItem: (id) => {
+        set((state) => ({
+          order: state.order.filter((item) => item.id !== id),
+        }));
+      },
+
+      clearCart: () => set({ order: [] }),
+
+      toggleFavorite: (id) =>
+        set((state) => ({
+          favorites: state.favorites.includes(id)
+            ? state.favorites.filter((f) => f !== id)
+            : [...state.favorites, id],
+        })),
+
+      getTotal: () => {
+        return get().order.reduce(
+          (acc, item) =>
+            acc + (Number(item.price) || 0) * (Number(item.quantity) || 0),
+          0,
+        );
+      },
+    }),
+    {
+      name: "cart-storage", // 🔥 clave localStorage
+      onRehydrateStorage: () => (state) => {
+        if (!state) return;
+
+        state.order = state.order.map((item) => ({
+          ...item,
+          price: Number(item.price) || 0,
+          quantity: Number(item.quantity) || 1,
+        }));
+
+        state.setHydrated();
+      },
+    },
+  ),
+);

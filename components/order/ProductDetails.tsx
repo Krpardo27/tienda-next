@@ -1,13 +1,12 @@
 import { useStore } from '@/src/store';
-import { OrderItem } from '@/src/types'
-import { formatCurrency } from '@/src/utils';
+import { CartItem, OrderItemPayload } from '@/src/types';
+import { formatCurrency, getImagePath } from '@/src/utils';
 import { XCircleIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image';
 import { useMemo } from 'react';
 
-
 type ProductDetailsProps = {
-  item: OrderItem
+  item: CartItem;
 }
 
 const MAX_ITEMS = 10
@@ -25,7 +24,7 @@ export default function ProductDetails({ item }: ProductDetailsProps) {
       {/* Imagen */}
       <div className="relative w-24 h-24 min-w-[96px] rounded-xl overflow-hidden bg-gray-100 shrink-0">
         <Image
-          src={`/products/${item.image}.jpg`}
+          src={getImagePath(item.image)}
           alt={item.name}
           fill
           sizes="96px"
@@ -86,7 +85,7 @@ export default function ProductDetails({ item }: ProductDetailsProps) {
           {/* Subtotal */}
           <p className="text-sm font-semibold text-gray-700 truncate">
             <span className="text-gray-400 mr-1">Subtotal</span>
-            {formatCurrency(item.subtotal)}
+            {formatCurrency(item.price * item.quantity)}
           </p>
         </div>
       </div>

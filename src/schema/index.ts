@@ -6,11 +6,8 @@ export const OrderSchema = z.object({
   order: z
     .array(
       z.object({
-        id: z.number(),
-        name: z.string(),
-        price: z.number(),
-        quantity: z.number(),
-        subtotal: z.number(),
+        productId: z.number(),
+        quantity: z.number().min(1),
       }),
     )
     .min(1, "El pedido no puede estar vacío"),
@@ -25,7 +22,7 @@ export const OrderIdSchema = z.object({
 });
 
 export const SearchProductSchema = z.object({
-  search: z.string().trim().min(1, "La búsqueda no puede estar vacía")
+  search: z.string().trim().min(1, "La búsqueda no puede estar vacía"),
 });
 
 export const ProductSchema = z.object({
@@ -45,4 +42,6 @@ export const ProductSchema = z.object({
     .transform((value) => parseInt(value))
     .refine((value) => value > 0, { message: "La Categoría es Obligatoria" })
     .or(z.number().min(1, { message: "La Categoría es Obligatoria" })),
+  description: z.string().optional(),
+  image: z.string().min(1, { message: "La Imagen es obligatoria" }),
 });
