@@ -10,17 +10,22 @@ datasource db {
 model Category {
   id       Int       @id @default(autoincrement())
   name     String
-  slug     String
+  slug     String @unique
   products Product[]
 }
 
 model Product {
-  id         Int             @id @default(autoincrement())
+  id         Int    @id @default(autoincrement())
   name       String
-  slug       String
+  slug       String @unique
   price      Float
   image      String
   categoryId Int
+
+  description String?
+  isNew       Boolean @default(false)
+  isPopular   Boolean @default(false)
+
   category   Category        @relation(fields: [categoryId], references: [id])
   orderItems OrderProducts[]
 }

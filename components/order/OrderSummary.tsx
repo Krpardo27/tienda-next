@@ -11,6 +11,15 @@ export default function OrderSummary() {
 
   const order = useStore((state) => state.order)
   const clearCart = useStore((state) => state.clearCart)
+  const hydrated = useStore((state) => state.hydrated)
+
+  if (!hydrated) {
+    return (
+      <aside className="md:w-64 lg:w-96 p-5">
+        <p className="text-center text-gray-400">Cargando carrito...</p>
+      </aside>
+    )
+  }
 
   const total = order.reduce(
     (total, item) => total + item.quantity * item.price,
@@ -18,30 +27,30 @@ export default function OrderSummary() {
   )
 
   const handleCreateOrder = async (formData: FormData) => {
-    // console.log(formData.get('name'));
     const data = {
       name: formData.get('name') as string,
       total,
-      order
+      order: order.map(item => ({
+        productId: item.id,
+        quantity: item.quantity
+      }))
     }
 
     const result = OrderSchema.safeParse(data)
-    console.log(result);
+
     if (!result.success) {
       result.error.issues.forEach((err) => {
         toast.error(err.message)
-      });
-
+      })
       return
     }
 
-    const response = await createOrderAction(data)
-    // console.log(response);
+    const response = await createOrderAction(result.data)
+
     if (response?.errors) {
       response.errors.forEach((err: { message: string }) => {
         toast.error(err.message)
-      });
-
+      })
       return
     }
 

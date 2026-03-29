@@ -178,7 +178,7 @@ export type CategoryGroupByOutputType = {
   _max: CategoryMaxAggregateOutputType | null
 }
 
-type GetCategoryGroupByPayload<T extends CategoryGroupByArgs> = Prisma.PrismaPromise<
+export type GetCategoryGroupByPayload<T extends CategoryGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CategoryGroupByOutputType, T['by']> &
       {
@@ -212,13 +212,13 @@ export type CategoryOrderByWithRelationInput = {
 
 export type CategoryWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  slug?: string
   AND?: Prisma.CategoryWhereInput | Prisma.CategoryWhereInput[]
   OR?: Prisma.CategoryWhereInput[]
   NOT?: Prisma.CategoryWhereInput | Prisma.CategoryWhereInput[]
   name?: Prisma.StringFilter<"Category"> | string
-  slug?: Prisma.StringFilter<"Category"> | string
   products?: Prisma.ProductListRelationFilter
-}, "id">
+}, "id" | "slug">
 
 export type CategoryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
