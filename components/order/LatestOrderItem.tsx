@@ -1,4 +1,5 @@
 import { OrderWithProducts } from "@/src/types";
+import { motion } from "framer-motion";
 
 type LatestOrderItemProps = {
   order: OrderWithProducts;
@@ -6,48 +7,44 @@ type LatestOrderItemProps = {
 
 export default function LatestOrderItem({ order }: LatestOrderItemProps) {
   return (
-    <article
+    <motion.article
+      layout
+      initial={{ opacity: 0, scale: 0.8, y: 30 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.7 }}
+      transition={{ duration: 0.3 }}
       className="
-        bg-white
-        rounded-2xl
-        border border-gray-200
-        shadow-sm hover:shadow-md
-        transition
-        p-5 space-y-4
+        flex flex-col items-center justify-center
+        bg-zinc-900
+        w-full
+        border border-zinc-700
+        rounded-3xl
+        p-6
+        h-48 md:h-56 xl:h-64
+        shadow-xl
+        text-center
       "
     >
-      {/* HEADER */}
-      <div className="flex items-start justify-between">
-        <div>
-          <p className="text-xs uppercase tracking-widest text-gray-400">
-            Orden #{order.id}
-          </p>
-          <h2 className="text-lg font-semibold text-gray-900">
-            {order.name}
-          </h2>
-        </div>
-      </div>
+      {/* 🔥 NUMERO GRANDE */}
+      <span className="text-6xl md:text-7xl xl:text-8xl font-black tracking-tight text-amber-400">
+        #{order.id}
+      </span>
 
-      {/* LISTA DE PRODUCTOS */}
-      <ul className="divide-y divide-gray-100 border-t border-gray-100">
-        {order.orderProducts.map((item) => (
-          <li
-            key={item.id}
-            className="flex items-center justify-between py-3"
-          >
-            <div className="flex flex-col">
-              <span className="text-sm font-medium text-gray-900">
-                {item.product.name}
-              </span>
-
-              <span className="text-xs text-gray-500">
-                ({item.quantity}{" "}
-                {item.quantity > 1 ? "unidades" : "unidad"})
-              </span>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </article>
+      {/* 🔥 NOMBRE (controlado) */}
+      <span
+        className="
+          text-sm md:text-base xl:text-lg
+          text-zinc-300
+          mt-3
+          uppercase
+          tracking-wide
+          w-full
+          
+        "
+        title={order.name}
+      >
+        {order.name}
+      </span>
+    </motion.article>
   );
 }

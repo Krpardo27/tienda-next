@@ -55,9 +55,10 @@ export default async function ProductsPage({
 
   return (
     <>
-      <Heading>Administrar Productos</Heading>
-
-      <div className="flex flex-col lg:flex-row items-center justify-between mb-6 gap-4">
+      <div className="flex flex-col lg:flex-row items-center justify-between mb-6 gap-4 max-w-7xl mx-auto space-y-4 px-4 py-8">
+        <Heading>Administrar Productos</Heading>
+      </div>
+      <div className="flex justify-between items-center">
         <Link
           href={"/admin/products/new"}
           className="bg-amber-400 w-full lg:w-auto text-xl px-10 py-3 text-center font-bold cursor-pointer"

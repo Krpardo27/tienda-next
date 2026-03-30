@@ -6,6 +6,7 @@ export async function GET() {
   const orders = await prisma.order.findMany({
     where: {
       status: false,
+      orderReadyAt: null,
     },
     include: {
       orderProducts: {
@@ -15,6 +16,5 @@ export async function GET() {
       },
     },
   });
-
-  return new Response(JSON.stringify(orders));
+  return Response.json(orders);
 }
