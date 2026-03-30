@@ -9,7 +9,11 @@ export default function OrdersPage() {
 
   const fetcher = async () => {
     const res = await fetch(url);
-    if (!res.ok) throw new Error("Error al cargar");
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      console.error("Error response:", errorData);
+      throw new Error(errorData.details || `Error ${res.status}: ${res.statusText}`);
+    }
     return res.json();
   };
 
@@ -29,12 +33,21 @@ export default function OrdersPage() {
       </div>
     );
 
-  if (error)
+  if (error) {
+    console.error("Frontend error:", error);
     return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-white">
+      <div className="min-h-screen flex items-center justify-center bg-black text-white flex-col">
         <p className="text-2xl font-bold">Error al cargar pedidos</p>
+        <p className="text-zinc-400 mt-2">{error.message}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="mt-4 px-4 py-2 bg-white text-black rounded-lg"
+        >
+          Reintentar
+        </button>
       </div>
     );
+  }
 
   if (orders)
     return (
