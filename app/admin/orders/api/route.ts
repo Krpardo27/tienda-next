@@ -16,10 +16,5 @@ export async function GET() {
     },
   });
 
-<<<<<<< HEAD
-  return Response.json(orders);
-}
-=======
   return new Response(JSON.stringify(orders));
 }
->>>>>>> c8a6e36 (Fixes)
