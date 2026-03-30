@@ -6,38 +6,73 @@ import LatestOrderItem from "@/components/order/LatestOrderItem";
 
 export default function OrdersPage() {
   const url = "/orders/api";
-  const fetcher = () =>
-    fetch(url).then((res) => res.json().then((data) => data));
+
+  const fetcher = async () => {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Error al cargar");
+    return res.json();
+  };
 
   const {
     data: orders,
     error,
     isLoading,
   } = useSWR<OrderWithProducts[]>(url, fetcher, {
-    refreshInterval: 60000,
+    refreshInterval: 5000,
     revalidateOnFocus: false,
   });
 
-  if (isLoading) return <p className="text-center">Cargando pedidos...</p>;
-  if (error) return <p className="text-center">Error al cargar los pedidos</p>;
+  if (isLoading)
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black text-white">
+        <p className="text-3xl animate-pulse">🍳 Cargando pedidos...</p>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black text-white">
+        <p className="text-2xl font-bold">Error al cargar pedidos</p>
+      </div>
+    );
 
   if (orders)
     return (
-      <>
-        <h1 className="text-center mt-20 text-6xl font-black">
-          Órdenes Listas
-        </h1>
-        <Logo />
+      <div className="min-h-screen bg-black px-6 py-10 text-white">
+        {/* HEADER */}
+        <div className="flex flex-col items-center gap-4 mb-10">
+          <Logo />
 
+          <h1 className="text-4xl md:text-6xl font-black tracking-tight">
+            🍽️ Órdenes Listas
+          </h1>
+
+          <p className="text-zinc-400 text-sm md:text-base">
+            Retira tu pedido en el mesón
+          </p>
+        </div>
+
+        {/* GRID */}
         {orders.length ? (
-          <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-5 mt-5">
-            {orders.map((order) => (
-              <LatestOrderItem key={order.id} order={order} />
-            ))}
+          <div className="max-w-7xl mx-auto">
+            <div
+              className="
+                grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5
+                gap-6
+              "
+            >
+              {orders.map((order) => (
+                <LatestOrderItem key={order.id} order={order} />
+              ))}
+            </div>
           </div>
         ) : (
-          <p className="text-center mt-5">No hay órdenes disponibles</p>
+          <div className="text-center mt-20">
+            <p className="text-3xl text-zinc-400">
+              Esperando pedidos...
+            </p>
+          </div>
         )}
-      </>
+      </div>
     );
 }

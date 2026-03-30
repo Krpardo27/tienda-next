@@ -2,3 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 🌑 Scrollbar base */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Thumb (AMBAR 🔥) */
+::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.6); /* amber-500 */
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(217, 119, 6, 0.9); /* amber-600 */
+}
+
+/* Active (cuando haces click) */
+::-webkit-scrollbar-thumb:active {
+  background: rgba(180, 83, 9, 1); /* amber-700 */
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245,158,11,0.6) transparent;
+}
