@@ -19,15 +19,12 @@ export default function OrderSummaryMobile() {
 
   if (!hydrated) return null;
 
-  const total = order.reduce(
-    (total, item) => total + item.quantity * item.price,
-    0,
-  );
+  const totalItems = order.reduce((acc, item) => acc + item.quantity, 0);
 
   const handleCreateOrder = async (formData: FormData) => {
     const data = {
       name: formData.get("name") as string,
-      total,
+      total: totalItems,
       order: order.map((item) => ({
         productId: item.id,
         quantity: item.quantity,
@@ -73,7 +70,7 @@ export default function OrderSummaryMobile() {
     transition
   "
       >
-        🛒 ({order.length})
+        🛒 ({totalItems})
       </button>
 
       {/* 🧾 DRAWER */}
@@ -99,7 +96,6 @@ export default function OrderSummaryMobile() {
               }}
               className="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl p-5 max-h-[85vh] overflow-y-auto"
             >
-
               {/* 🔥 HEADER */}
               <div className="flex items-center justify-between mb-4">
                 <h1 className="text-xl font-black">Mi pedido</h1>
@@ -109,7 +105,7 @@ export default function OrderSummaryMobile() {
                   onClick={() => setOpen(false)}
                   className="p-2 rounded-full bg-zinc-100 hover:bg-zinc-300 transition"
                 >
-                 <XMarkIcon className="w-6 h-6 text-zinc-700 rounded-full" />
+                  <XMarkIcon className="w-6 h-6 text-zinc-700 rounded-full" />
                 </button>
               </div>
 
@@ -120,7 +116,6 @@ export default function OrderSummaryMobile() {
                 </p>
               ) : (
                 <div className="space-y-4">
-
                   {order.map((item) => (
                     <ProductDetails key={item.id} item={item} />
                   ))}
@@ -128,7 +123,14 @@ export default function OrderSummaryMobile() {
                   <div className="border-t pt-4 flex justify-between items-center">
                     <p className="text-lg font-semibold text-gray-700">Total</p>
                     <span className="text-xl font-black text-amber-500">
-                      {formatCurrency(total)}
+                      {totalItems} {totalItems === 1 ? "artículo" : "artículos"}{" "}
+                      -{" "}
+                      {formatCurrency(
+                        order.reduce(
+                          (total, item) => total + item.quantity * item.price,
+                          0,
+                        ),
+                      )}
                     </span>
                   </div>
 
