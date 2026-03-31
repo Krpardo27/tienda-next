@@ -15,7 +15,7 @@ export default async function OrderSidebar() {
   return (
     <aside className="md:w-72 hidden md:h-screen bg-white border-r border-zinc-200 lg:flex flex-col">
       {/* 🔥 LOGO (intacto) */}
-      <div className="p-3 md:p-6 w-28  border-b border-zinc-200 flex items-center justify-center">
+      <div className="p-3 md:p-6 w-28 lg:w-full border-b border-zinc-200 flex items-center justify-center">
         <Logo />
       </div>
 
