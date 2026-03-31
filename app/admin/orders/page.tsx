@@ -3,14 +3,20 @@ import useSWR from "swr";
 import OrderCard from "@/components/order/OrderCard";
 import Heading from "@/components/ui/Heading";
 import { OrderWithProducts } from "@/src/types";
+import { api } from "@/src/lib/axios";
 
 export default function OrdersPage() {
   const url = "/admin/orders/api";
 
   const fetcher = async () => {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("Error al cargar órdenes");
-    return res.json();
+    try {
+      const { data } = await api.get(url);
+      return data;
+    } catch (error: any) {
+      throw new Error(
+        error?.response?.data?.error || "Error al cargar órdenes"
+      );
+    }
   };
 
   const { data, error, isLoading } = useSWR<OrderWithProducts[]>(url, fetcher, {

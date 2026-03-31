@@ -3,18 +3,25 @@ import useSWR from "swr";
 import Logo from "@/components/ui/Logo";
 import { OrderWithProducts } from "@/src/types";
 import LatestOrderItem from "@/components/order/LatestOrderItem";
+import { api } from "@/src/lib/axios";
 
 export default function OrdersPage() {
   const url = "/orders/api";
 
   const fetcher = async () => {
-    const res = await fetch(url);
-    if (!res.ok) {
-      const errorData = await res.json().catch(() => ({}));
-      console.error("Error response:", errorData);
-      throw new Error(errorData.details || `Error ${res.status}: ${res.statusText}`);
+    try {
+      const { data } = await api.get(url);
+      return data;
+    } catch (error: any) {
+      console.error("Axios error:", error?.response);
+
+      throw new Error(
+        error?.response?.data?.details ||
+        error?.response?.data?.error ||
+        error.message ||
+        "Error desconocido"
+      );
     }
-    return res.json();
   };
 
   const {

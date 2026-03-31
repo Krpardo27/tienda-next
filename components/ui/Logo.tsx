@@ -1,17 +1,28 @@
-import Image from 'next/image'
-import React from 'react'
+import Image from "next/image";
 
-export default function Logo() {
+type LogoProps = {
+  size?: "sm" | "md" | "lg";
+  className?: string;
+};
+
+export default function Logo({ size = "md", className = "" }: LogoProps) {
+  const sizes = {
+    sm: "w-16 h-16",
+    md: "w-24 h-24",
+    lg: "w-40 h-40",
+  };
+
   return (
-    <div className='flex justify-center mt-5'>
-      <div className='relative w-40 h-40'>
+    <div className={`flex justify-center ${className}`}>
+      <div className={`relative ${sizes[size]}`}>
         <Image
           src="/logo.svg"
           alt="Logo"
           fill
           priority
+          className="object-contain"
         />
       </div>
     </div>
-  )
+  );
 }

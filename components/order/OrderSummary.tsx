@@ -59,7 +59,7 @@ export default function OrderSummary() {
   }
 
   return (
-    <aside className="lg:max-h-screen lg:overflow-y-auto md:w-64 lg:w-96 p-5">
+    <aside className="hidden lg:flex lg:flex-col lg:max-h-screen lg:overflow-y-auto md:w-64 lg:w-96 p-5">
       <h1 className="text-3xl text-center font-black">Mi pedido</h1>
 
       {order.length === 0 ? (

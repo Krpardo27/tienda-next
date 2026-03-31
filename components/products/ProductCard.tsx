@@ -54,6 +54,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <Image
           src={imagePath}
           alt={product.name}
+          loading="eager"
           fill
           sizes="(min-width: 768px) 300px, 100vw"
           className="
