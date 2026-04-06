@@ -386,10 +386,6 @@ export type OrderScalarRelationFilter = {
   isNot?: Prisma.OrderWhereInput
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }

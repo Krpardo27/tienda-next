@@ -28,8 +28,8 @@ export async function GET() {
     });
     console.log("📊 Muestra de órdenes:", sampleOrders);
 
-    const THREE_MINUTES = 3 * 60 * 1000;
-    const cutoff = new Date(Date.now() - THREE_MINUTES);
+    const ONE_MINUTE = 1 * 60 * 1000;
+    const cutoff = new Date(Date.now() - ONE_MINUTE);
     console.log("⏰ Cutoff time:", cutoff.toISOString());
 
     const orders = await prisma.order.findMany({

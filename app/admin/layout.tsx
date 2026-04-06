@@ -1,4 +1,6 @@
 import AdminSidebar from "@/components/admin/AdminSidebar";
+import AdminMobileNav from "@/components/ui/AdminMobileNav";
+import LogoutButton from "@/components/ui/LogoutButton";
 import ToastNotification from "@/components/ui/ToastNotification";
 
 export default async function AdminLayout({
@@ -9,16 +11,21 @@ export default async function AdminLayout({
   return (
     <>
       <div className="flex min-h-screen bg-gray-100">
-
-        {/* Sidebar */}
         <aside className="
-          hidden md:flex md:flex-col
-          md:w-72
-          bg-white border-r border-gray-200
-          md:sticky md:top-0 md:h-screen
-          overflow-y-auto
-        ">
-          <AdminSidebar />
+  hidden md:flex md:flex-col
+  md:w-72
+  bg-white border-r border-gray-200
+  md:sticky md:top-0 md:h-screen
+">
+          {/* SCROLLABLE */}
+          <div className="flex-1 overflow-y-auto">
+            <AdminSidebar />
+          </div>
+
+          {/* FIXED BOTTOM */}
+          <div className="p-4 border-t border-gray-200">
+            <LogoutButton />
+          </div>
         </aside>
 
         {/* Main */}
@@ -48,8 +55,10 @@ export default async function AdminLayout({
             </div>
           </div>
         </main>
-      </div>
 
+        <AdminMobileNav />
+
+      </div>
       <ToastNotification />
     </>
   );

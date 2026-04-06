@@ -15,8 +15,8 @@ export default function AdminSidebar() {
       <div className="space-y-3 ">
         <nav className="flex flex-col">
           {adminNavigation.map((link) => (
-            <AdminRoute 
-              key={link.url} 
+            <AdminRoute
+              key={link.url}
               link={link} />
           ))}
         </nav>
