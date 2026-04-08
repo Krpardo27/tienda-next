@@ -1,22 +1,17 @@
-"use client";
+'use client';
 
-import { logoutAction } from "@/app/auth/actions/logout-action";
-import { useRouter } from "next/navigation";
+import { signOut } from "@/src/lib/auth-client";
+import { redirect } from "next/navigation";
 import { FiLogOut } from "react-icons/fi";
 
 export default function LogoutButton() {
-  const router = useRouter();
-
-  const handleLogout = async () => {
-    await logoutAction();
-
-    router.replace("/login");
-    router.refresh();
-  };
 
   return (
     <button
-      onClick={handleLogout}
+      onClick={async () => {
+        await signOut();
+        redirect("/auth/login");
+      }}
       className="
         flex items-center gap-3
         w-full px-4 py-3
@@ -24,7 +19,9 @@ export default function LogoutButton() {
         text-red-500
         hover:bg-red-50
         rounded-xl
-        transition
+        transition 
+        cursor-pointer
+        active:scale-[0.98]
       "
     >
       <FiLogOut size={18} />

@@ -31,8 +31,8 @@ export default async function ProductForm({ product }: ProductFormProps) {
             rounded-xl border border-zinc-200
             bg-white
             text-sm text-zinc-900 placeholder:text-zinc-400
-            shadow-sm
-            focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+            shadow-xs
+            focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
             transition
           "
         />
@@ -53,8 +53,8 @@ export default async function ProductForm({ product }: ProductFormProps) {
             rounded-xl border border-zinc-200
             bg-white
             text-sm text-zinc-900 placeholder:text-zinc-400
-            shadow-sm
-            focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+            shadow-xs
+            focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
             transition
           "
         />
@@ -76,8 +76,8 @@ export default async function ProductForm({ product }: ProductFormProps) {
             rounded-xl border border-zinc-200
             bg-white
             text-sm text-zinc-900
-            shadow-sm
-            focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+            shadow-xs
+            focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
             transition
           "
         >
@@ -109,8 +109,8 @@ export default async function ProductForm({ product }: ProductFormProps) {
       rounded-xl border border-zinc-200
       bg-white
       text-sm text-zinc-900 placeholder:text-zinc-400
-      shadow-sm
-      focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+      shadow-xs
+      focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
       transition
       resize-none
     "

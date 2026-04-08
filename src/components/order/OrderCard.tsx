@@ -17,7 +17,7 @@ export default function OrderCard({ order }: OrderCardProps) {
         px-5 py-6 sm:p-6 lg:p-7
         space-y-6
         border border-zinc-200
-        shadow-sm
+        shadow-xs
         transition-all duration-300
         hover:shadow-xl hover:shadow-black/10
         hover:-translate-y-[2px]
@@ -117,7 +117,7 @@ export default function OrderCard({ order }: OrderCardProps) {
           className="
             w-full mt-2
             rounded-xl
-            bg-gradient-to-r from-amber-500 to-amber-600
+            bg-linear-to-r from-amber-500 to-amber-600
             hover:from-amber-600 hover:to-amber-700
             active:scale-[0.97]
             transition-all duration-200
@@ -138,7 +138,7 @@ export default function OrderCard({ order }: OrderCardProps) {
         absolute inset-0 rounded-2xl
         opacity-0 
         transition
-        bg-gradient-to-br from-amber-500/10 to-transparent
+        bg-linear-to-br from-amber-500/10 to-transparent
       "
       />
     </section>

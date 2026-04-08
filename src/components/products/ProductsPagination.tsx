@@ -17,8 +17,8 @@ export default function ProductsPagination({
       {page > 1 && (
         <Link
           scroll={false}
-          href={`/admin/products?page=${page - 1}`}
-          className="px-3 py-2 bg-white border rounded hover:bg-zinc-100"
+          href={`/dashboard/products?page=${page - 1}`}
+          className="px-3 py-2 bg-white border rounded-sm hover:bg-zinc-100"
         >
           &laquo;
         </Link>
@@ -28,7 +28,7 @@ export default function ProductsPagination({
         <Link
           key={p}
           scroll={false}
-          href={`/admin/products?page=${p}`}
+          href={`/dashboard/products?page=${p}`}
           aria-current={page === p ? "page" : undefined}
           className={`px-3 py-2 border rounded ${
             page === p
@@ -43,8 +43,8 @@ export default function ProductsPagination({
       {page < totalPages && (
         <Link
           scroll={false}
-          href={`/admin/products?page=${page + 1}`}
-          className="px-3 py-2 bg-white border rounded hover:bg-zinc-100"
+          href={`/dashboard/products?page=${page + 1}`}
+          className="px-3 py-2 bg-white border rounded-sm hover:bg-zinc-100"
         >
           &raquo;
         </Link>

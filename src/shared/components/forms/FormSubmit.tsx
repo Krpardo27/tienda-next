@@ -13,7 +13,7 @@ export default function FormSubmit(props: Props) {
         hover:bg-zinc-800
         active:scale-[0.98]
         disabled:cursor-not-allowed disabled:opacity-60
-        focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2
+        focus:outline-hidden focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2
         cursor-pointer
       "
     />

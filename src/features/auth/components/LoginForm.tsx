@@ -1,73 +1,35 @@
 "use client";
 
-import { useActionState, useEffect, useMemo, useState } from "react";
-import { useFormStatus } from "react-dom";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { LoginSchema } from "@/src/schema/auth";
-import { Form, FormInput, FormLabel, FormSubmit } from "@/src/shared/components/forms";
-import FormErrors from "@/src/shared/components/forms/FormErrors";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormInput, FormLabel, FormSubmit } from "@/components/forms";
+import { SignInInput, SignInSchema } from "../schemas/authSchema";
+import FormErrors from "@/src/shared/components/forms/FormErrors";
+import { signInAction } from "../actions/auth-actions";
+import { toast } from "react-toastify";
+import { redirect } from "next/navigation";
 
-type LoginState = {
-  success?: boolean;
-  errors?: {
-    email?: string[];
-    password?: string[];
-    general?: string[];
-  };
-};
-
-type Props = {
-  action: (prevState: LoginState, formData: FormData) => Promise<LoginState>;
-};
-
-const initialState: LoginState = {
-  success: false,
-  errors: {},
-};
-
-function SubmitButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="
-        w-full rounded-xl bg-black px-4 py-3 text-sm font-semibold text-white
-        transition hover:bg-zinc-800 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60
-      "
-    >
-      {pending ? "Ingresando..." : "Ingresar"}
-    </button>
-  );
-}
-
-export default function LoginForm({ action }: Props) {
+export default function LoginForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(LoginSchema),
+    resolver: zodResolver(SignInSchema),
     mode: "all",
   });
 
   const onSubmit = async (data: SignInInput) => {
-    console.log(data);
-    // const { success, error } = await signInAction(data);
-    // if (error) {
-    //   toast.error(error);
-    // }
+    const { success, error } = await signInAction(data);
 
-    // if (success) {
-    //   toast.success(success);
-    //   // redirect("/admin")
-    // }
+    if (error) {
+      toast.error(error);
+    }
+
+    if (success) {
+      toast.success(success);
+      redirect("/dashboard");
+    }
   };
 
   return (

@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 import { FiShoppingBag, FiBox, FiMonitor } from "react-icons/fi";
 
 const adminNavigation = [
-  { url: "/admin/orders", text: "Órdenes", icon: FiShoppingBag },
-  { url: "/admin/products", text: "Productos", icon: FiBox },
+  { url: "/dashboard/orders", text: "Órdenes", icon: FiShoppingBag },
+  { url: "/dashboard/products", text: "Productos", icon: FiBox },
   { url: "/order/cafe", text: "Quiosco", icon: FiMonitor, blank: true },
 ];
 

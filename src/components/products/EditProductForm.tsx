@@ -1,11 +1,11 @@
 "use client";
 
 import { updateProduct } from "@/actions/update-product-action";
-import { ProductSchema } from "@/src/schema";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "react-toastify";
 import { useParams } from "next/navigation";
+import { ProductSchema } from "../admin/schema";
 
 export default function EditProductForm({
   children,

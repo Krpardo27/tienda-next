@@ -1,9 +1,9 @@
 'use client';
 
-import { SearchProductSchema } from "@/src/schema";
 import React from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { SearchProductSchema } from "../admin/schema";
 
 export default function ProductSearchForm() {
 
@@ -23,19 +23,19 @@ export default function ProductSearchForm() {
       });
       return;
     }
-    router.push(`/admin/products/search?search=${result.data.search}`);
+    router.push(`/dashboard/products/search?search=${result.data.search}`);
   }
 
   return (
     <form
-      action={handleSearchForm} 
+      action={handleSearchForm}
       className="flex items-center">
       <input
         type="text"
         name="search"
         id="search"
         placeholder="Buscar producto..."
-        className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
+        className="border border-gray-300 rounded-md px-4 py-2 focus:outline-hidden focus:ring-2 focus:ring-amber-400"
       />
 
       <input

@@ -1,10 +1,10 @@
 'use client';
 
 import { createProductAction } from "@/actions/create-product-action";
-import { ProductSchema } from "@/src/schema";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "react-toastify";
+import { ProductSchema } from "../admin/schema";
 
 export default function AddProductForm({ children }: { children?: React.ReactNode }) {
 

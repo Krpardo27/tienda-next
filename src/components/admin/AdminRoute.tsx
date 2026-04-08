@@ -35,12 +35,12 @@ export default function AdminRoute({ link }: AdminRouteProps) {
 
         hover:bg-zinc-100
         md:hover:bg-zinc-100/80
-        md:hover:shadow-sm
-        md:hover:-translate-y-[1px]
+        md:hover:shadow-xs
+        md:hover:-translate-y-px
 
         ${
           isActive
-            ? "bg-amber-500 text-white border-amber-500 shadow-sm md:bg-amber-100 md:text-amber-700 md:border-transparent"
+            ? "bg-amber-500 text-white border-amber-500 shadow-xs md:bg-amber-100 md:text-amber-700 md:border-transparent"
             : "text-zinc-700"
         }
       `}

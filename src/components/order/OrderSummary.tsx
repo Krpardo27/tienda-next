@@ -4,8 +4,8 @@ import { useStore } from "@/src/store";
 import ProductDetails from "./ProductDetails";
 import { formatCurrency } from "@/src/utils";
 import { createOrderAction } from "@/actions/create-order-action";
-import { OrderSchema } from "@/src/schema";
 import { toast } from "react-toastify";
+import { OrderSchema } from "../admin/schema";
 
 export default function OrderSummary() {
   const order = useStore((state) => state.order);
@@ -108,7 +108,7 @@ export default function OrderSummary() {
           {/* 🔥 CLEAR */}
           <button
             onClick={clearCart}
-            className="w-full rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700 transition"
+            className="w-full rounded-sm bg-red-600 px-4 py-2 text-white hover:bg-red-700 transition"
           >
             Vaciar carrito
           </button>

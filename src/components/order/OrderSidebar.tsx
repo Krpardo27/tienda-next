@@ -21,7 +21,7 @@ export default async function OrderSidebar() {
 
       {/* 📱 MOBILE STICKY CATEGORIES */}
       <div className="md:hidden sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b">
-        <div className="flex gap-3 overflow-x-auto px-3 py-3 [&>*]:shrink-0">
+        <div className="flex gap-3 overflow-x-auto px-3 py-3 *:shrink-0">
           {categories.map((category) => (
             <CategoryIcon key={category.id} category={category} />
           ))}

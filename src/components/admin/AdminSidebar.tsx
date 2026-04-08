@@ -1,9 +1,10 @@
 import Logo from "../ui/Logo"
+import LogoutButton from "../ui/LogoutButton"
 import AdminRoute from "./AdminRoute"
 
 const adminNavigation = [
-  { url: '/admin/orders', text: 'Órdenes', blank: false },
-  { url: '/admin/products', text: 'Productos', blank: false },
+  { url: '/dashboard/orders', text: 'Órdenes', blank: false },
+  { url: '/dashboard/products', text: 'Productos', blank: false },
   { url: '/order/cafe', text: 'Ver Quiosco', blank: true },
 ]
 

@@ -1,7 +1,7 @@
 'use server'
 
+import { ProductSchema } from "@/src/components/admin/schema";
 import { prisma } from "@/src/lib/prisma";
-import { ProductSchema } from "@/src/schema";
 import { revalidatePath } from "next/cache";
 
 export async function updateProduct(data: unknown, id: number) {
@@ -15,5 +15,5 @@ export async function updateProduct(data: unknown, id: number) {
     where: { id },
     data: result.data,
   });
-  revalidatePath("/admin/products");
+  revalidatePath("/dashboard/products");
 }

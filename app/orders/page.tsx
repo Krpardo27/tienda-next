@@ -1,13 +1,13 @@
 "use client";
 
 import useSWR from "swr";
-import Logo from "@/components/ui/Logo";
 import { OrderWithProducts } from "@/src/types";
-import LatestOrderItem from "@/components/order/LatestOrderItem";
 import { api } from "@/src/lib/axios";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
+import Logo from "@/src/components/ui/Logo";
+import LatestOrderItem from "@/src/components/order/LatestOrderItem";
 
 export default function OrdersPage() {
   const url = "/orders/api";
@@ -17,14 +17,14 @@ export default function OrdersPage() {
     return data;
   };
 
-  const { data: orders, error, isLoading } = useSWR<OrderWithProducts[]>(
-    url,
-    fetcher,
-    {
-      refreshInterval: 5000,
-      revalidateOnFocus: false,
-    }
-  );
+  const {
+    data: orders,
+    error,
+    isLoading,
+  } = useSWR<OrderWithProducts[]>(url, fetcher, {
+    refreshInterval: 5000,
+    revalidateOnFocus: false,
+  });
 
   const audioUnlockedRef = useRef(false);
   const prevIdsRef = useRef<number[] | null>(null);
@@ -39,7 +39,7 @@ export default function OrdersPage() {
 
         console.log("🔓 audio desbloqueado");
         audioUnlockedRef.current = true;
-      } catch { }
+      } catch {}
 
       window.removeEventListener("click", unlock);
     };
@@ -51,7 +51,7 @@ export default function OrdersPage() {
   useEffect(() => {
     if (!orders) return;
 
-    const currentIds = orders.map(o => o.id);
+    const currentIds = orders.map((o) => o.id);
 
     // 🔴 primer render → solo guardar
     if (prevIdsRef.current === null) {
@@ -61,7 +61,7 @@ export default function OrdersPage() {
 
     // 🔥 detectar nuevas órdenes
     const newOrders = currentIds.filter(
-      id => !prevIdsRef.current!.includes(id)
+      (id) => !prevIdsRef.current!.includes(id),
     );
 
     if (newOrders.length > 0) {

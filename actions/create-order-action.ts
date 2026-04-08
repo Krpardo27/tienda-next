@@ -1,7 +1,7 @@
 "use server";
 
+import { OrderSchema } from "@/src/components/admin/schema";
 import { prisma } from "@/src/lib/prisma";
-import { OrderSchema } from "@/src/schema";
 
 export async function createOrderAction(data: unknown) {
   const result = OrderSchema.safeParse(data);

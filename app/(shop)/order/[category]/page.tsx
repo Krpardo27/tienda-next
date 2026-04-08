@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
-import ProductCard from "@/components/products/ProductCard";
-import Heading from "@/components/ui/Heading";
 import { prisma } from "@/src/lib/prisma";
+import Heading from "@/src/components/ui/Heading";
+import ProductCard from "@/src/components/products/ProductCard";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -31,13 +31,26 @@ export default async function OrderPage({ params }: Props) {
 
   return (
     <>
-      <Heading>Elige y personaliza tu pedido a continuación</Heading>
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Heading>
+          Elige y personaliza tu pedido a continuación
+        </Heading>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-4 items-start my-10">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+        <div
+          className="
+        mt-8
+        grid
+        gap-5
+        grid-cols-[repeat(auto-fill,minmax(220px,1fr))]
+        sm:grid-cols-[repeat(auto-fill,minmax(240px,1fr))]
+        lg:grid-cols-[repeat(auto-fill,minmax(260px,1fr))]
+      "
+        >
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
     </>
   );
 }

@@ -1,9 +1,8 @@
-import AppProviders from "@/components/providers/AppProviders";
-import OrderCategoryMobileWrapper from "@/components/order/OrderCategoryMobileWrapper";
-import OrderSidebar from "@/components/order/OrderSidebar";
-import OrderSummary from "@/components/order/OrderSummary";
-import OrderSummaryMobile from "@/components/order/OrderSummaryMobile";
-import ToastNotification from "@/components/ui/ToastNotification";
+import OrderCategoryMobileWrapper from "@/src/components/order/OrderCategoryMobileWrapper";
+import OrderSidebar from "@/src/components/order/OrderSidebar";
+import OrderSummary from "@/src/components/order/OrderSummary";
+import OrderSummaryMobile from "@/src/components/order/OrderSummaryMobile";
+import AppProviders from "@/src/components/providers/AppProviders";
 
 export default function RootLayout({
   children,
@@ -13,9 +12,8 @@ export default function RootLayout({
   return (
     <AppProviders>
       <OrderCategoryMobileWrapper />
-
       {/* Mobile */}
-      <div className="md:hidden">
+      <div className="lg:hidden">
         <OrderSummaryMobile />
       </div>
 
@@ -32,7 +30,6 @@ export default function RootLayout({
         </div>
       </div>
 
-      <ToastNotification />
     </AppProviders>
   );
 }

@@ -1,4 +1,4 @@
-import { ProductWithCategory } from "@/app/admin/products/page"
+import { ProductWithCategory } from "@/app/dashboard/products/page"
 import { formatCurrency } from "@/src/utils"
 import Link from "next/link"
 
@@ -38,7 +38,7 @@ export default function ProductTable({ products }: ProductTableProps) {
                     <td className="px-3 py-4 text-sm text-gray-500">{formatCurrency(product.price)}</td>
                     <td className="px-3 py-4 text-sm text-gray-500">{product.category.name}</td>
                     <td className="px-3 py-4 text-sm font-medium text-indigo-600 hover:text-indigo-900">
-                      <Link href={`/admin/products/${product.id}/edit`} className="text-indigo-600 hover:text-indigo-800">Editar
+                      <Link href={`/dashboard/products/${product.id}/edit`} className="text-indigo-600 hover:text-indigo-800">Editar
                         <span className="sr-only">{product.name}</span>
                       </Link>
                     </td>

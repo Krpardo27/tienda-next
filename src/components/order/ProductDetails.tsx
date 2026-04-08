@@ -19,7 +19,7 @@ export default function ProductDetails({ item }: ProductDetailsProps) {
   const disableIncrease = useMemo(() => item.quantity === MAX_ITEMS, [item]);
 
   return (
-    <div className="flex gap-4 p-4 bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition">
+    <div className="flex gap-4 p-4 bg-white border border-gray-200 rounded-2xl shadow-xs hover:shadow-md transition">
 
       {/* Imagen */}
       <div className="relative w-24 h-24 min-w-[96px] rounded-xl overflow-hidden bg-gray-100 shrink-0">

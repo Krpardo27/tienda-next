@@ -21,13 +21,13 @@ export default function ProductCard({ product }: ProductCardProps) {
         rounded-3xl overflow-hidden
         bg-white
         border border-zinc-200/60
-        shadow-sm hover:shadow-xl
+        shadow-xs hover:shadow-xl
         transition-all duration-300 ease-out
         hover:-translate-y-2
       "
     >
       {/* IMAGE */}
-      <div className="relative w-full aspect-[4/3] overflow-hidden bg-zinc-100">
+      <div className="relative w-full aspect-4/3 overflow-hidden bg-zinc-100">
 
         {/* BADGES */}
         <div className="absolute top-3 left-3 flex gap-2 z-10">
@@ -82,7 +82,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* OVERLAY */}
         <div className="
           absolute inset-0
-          bg-gradient-to-t from-black/60 via-black/10 to-transparent
+          bg-linear-to-t from-black/60 via-black/10 to-transparent
           opacity-70 group-hover:opacity-90
           transition
         " />
@@ -90,7 +90,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* PRICE FLOAT */}
         <div className="absolute bottom-3 right-3 z-10">
           <span className="
-            bg-white/95 backdrop-blur
+            bg-white/95 backdrop-blur-sm
             text-amber-600 font-bold
             px-3 py-1.5 rounded-full text-sm shadow-md
           ">

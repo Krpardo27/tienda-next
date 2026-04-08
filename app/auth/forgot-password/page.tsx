@@ -3,7 +3,6 @@ import Link from "next/link";
 import ForgotPasswordForm from "@/src/features/auth/components/ForgotPasswordForm";
 import { FiLogIn, FiUserPlus } from "react-icons/fi";
 import Heading from "@/src/components/ui/Heading";
-import { loginAction } from "../actions/login-action";
 
 export const metadata: Metadata = {
   title:  "Recuperar contraseña",
@@ -20,7 +19,7 @@ export default function ForgotPasswordPage() {
           Ingresa tu correo electrónico para recibir instrucciones de recuperación
         </p>
       </div>
-      <ForgotPasswordForm action={loginAction} />
+      <ForgotPasswordForm />
 
       <nav className="mt-2 space-y-3 w-full">
         {/* LOGIN */}

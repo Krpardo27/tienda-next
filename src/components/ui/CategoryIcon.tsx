@@ -28,35 +28,26 @@ export default function CategoryIcon({ category }: CategoryIconProps) {
       aria-current={isActive ? "page" : undefined}
       className={cn(
         // 🔥 BASE
-        "group flex items-center gap-3 rounded-xl transition-all duration-300 ease-out",
+        "group inline-flex items-center gap-3 rounded-xl transition-all duration-300 ease-out",
 
-        // 🔥 MOBILE
         "min-w-max px-3 py-2",
-        "bg-white border-transparent border hover:border-amber-300 hover:shadow-sm",
+
+        "bg-white border border-transparent hover:border-amber-300 hover:shadow-sm",
         "active:scale-[0.96]",
 
-        // 🔥 DESKTOP HOVER (más coherente con amber)
-        "md:w-full md:px-4 md:py-3 border-transparent hover:border-amber-300 hover:bg-amber-50 hover:shadow-sm",
-        "md:hover:bg-amber-50",
-        "md:hover:shadow-sm",
-        "md:hover:-translate-y-[1px]",
-        "md:hover:ring-1 md:hover:ring-amber-200",
+        "md:px-4 md:py-3",
+        "md:hover:bg-amber-50 md:hover:-translate-y-px md:hover:ring-1 md:hover:ring-amber-200",
 
-        // 🔥 ACTIVE (refinado)
         isActive &&
-          "bg-amber-200 border-amber-300 shadow-sm ring-1 ring-amber-300",
+        "bg-amber-200 border-amber-300 shadow-sm ring-1 ring-amber-300",
       )}
     >
-      {/* ICON */}
       <div
         className={cn(
           "relative flex items-center justify-center rounded-lg",
-          "size-8 md:size-12",
+          "size-8 md:size-10", // 🔥 bajé de 12 → 10 (12 era demasiado grande)
           "bg-amber-100 transition-all duration-300",
-
-          "group-hover:bg-amber-200",
-          "group-hover:shadow-md",
-
+          "group-hover:bg-amber-200 group-hover:shadow-md",
           isActive && "bg-amber-300 shadow-md",
         )}
       >
@@ -64,12 +55,11 @@ export default function CategoryIcon({ category }: CategoryIconProps) {
           src={`/icon_${category.slug}.svg`}
           alt={category.name}
           fill
-          sizes="48px"
-          className="object-contain p-1 md:p-2"
+          sizes="40px"
+          className="object-contain p-1.5"
         />
       </div>
 
-      {/* TEXT */}
       <span
         className={cn(
           "text-xs md:text-sm font-semibold whitespace-nowrap transition-colors duration-200",
@@ -80,7 +70,7 @@ export default function CategoryIcon({ category }: CategoryIconProps) {
         {category.name}
       </span>
 
-      <div className="ml-auto hidden md:block">
+      <div className="ml-auto hidden md:flex items-center">
         <span
           className={cn(
             "w-2 h-2 rounded-full transition-all duration-300",
