@@ -1,7 +1,7 @@
 "use server";
 
+import { ProductSchema } from "@/src/components/admin/schema";
 import { prisma } from "@/src/lib/prisma";
-import { ProductSchema } from "@/src/schema";
 import slugify from "slugify";
 
 export async function createProductAction(data: unknown) {

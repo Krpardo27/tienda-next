@@ -1,7 +1,7 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/src/lib/prisma";
-import { OrderIdSchema } from "@/src/schema";
+import { OrderIdSchema } from "@/src/components/admin/schema";
 
 export async function completeOrder(formData: FormData) {
   // console.log("Order completed", formData.get("order_id"));
@@ -23,7 +23,7 @@ export async function completeOrder(formData: FormData) {
           orderReadyAt: new Date(Date.now()),
         },
       });
-      revalidatePath("/admin/orders");
+      revalidatePath("/dashboard/orders");
     } catch (error) {
       console.log(error);
     }

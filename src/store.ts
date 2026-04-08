@@ -14,7 +14,7 @@ interface Store {
   clearCart: () => void;
 
   toggleFavorite: (id: number) => void;
-  getTotal: () => number;
+  // getTotal: () => number;
 
   setHydrated: () => void;
 }
@@ -95,13 +95,13 @@ export const useStore = create<Store>()(
             : [...state.favorites, id],
         })),
 
-      getTotal: () => {
-        return get().order.reduce(
-          (acc, item) =>
-            acc + (Number(item.price) || 0) * (Number(item.quantity) || 0),
-          0,
-        );
-      },
+      // getTotal: () => {
+      //   return get().order.reduce(
+      //     (acc, item) =>
+      //       acc + (Number(item.price) || 0) * (Number(item.quantity) || 0),
+      //     0,
+      //   );
+      // },
     }),
     {
       name: "cart-storage", // 🔥 clave localStorage

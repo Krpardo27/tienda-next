@@ -386,14 +386,6 @@ export type OrderScalarRelationFilter = {
   isNot?: Prisma.OrderWhereInput
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type OrderCreateNestedOneWithoutOrderProductsInput = {
   create?: Prisma.XOR<Prisma.OrderCreateWithoutOrderProductsInput, Prisma.OrderUncheckedCreateWithoutOrderProductsInput>
   connectOrCreate?: Prisma.OrderCreateOrConnectWithoutOrderProductsInput

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import ToastNotification from "@/src/components/ui/ToastNotification";
 
 const font = Inter({
   subsets: ["latin"],
@@ -23,6 +24,7 @@ export default function RootLayout({
         className={`${font.className} bg-gray-100 antialiased`}
       >
         {children}
+        <ToastNotification />
       </body>
     </html>
   );
