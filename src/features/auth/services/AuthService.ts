@@ -28,12 +28,10 @@ class AuthService {
         password,
         callbackURL: "/dashboard/orders",
       },
-      headers: await headers(),
     });
 
     return {
       error: "",
-
       success: "Cuenta creada correctamente",
     };
   }
