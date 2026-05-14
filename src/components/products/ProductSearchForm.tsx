@@ -1,48 +1,24 @@
-'use client';
+"use client";
 
-import React from "react";
-import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
-import { SearchProductSchema } from "../admin/schema";
+import FormInputSearch from "@/src/shared/components/forms/FormInputSearch";
 
-export default function ProductSearchForm() {
+type Props = {
+  value: string;
+  onChange: (value: string) => void;
+};
 
-  const router = useRouter();
-
-  const handleSearchForm = (formData: FormData) => {
-    const data = {
-      search: formData.get('search')
-    }
-
-    const result = SearchProductSchema.safeParse(data);
-    console.log(result);
-
-    if (!result.success) {
-      result.error.issues.forEach((issue) => {
-        toast.error(issue.message);
-      });
-      return;
-    }
-    router.push(`/dashboard/products/search?search=${result.data.search}`);
-  }
-
+export default function ProductSearchForm({
+  value,
+  onChange,
+}: Props) {
   return (
-    <form
-      action={handleSearchForm}
-      className="flex items-center">
-      <input
-        type="text"
-        name="search"
-        id="search"
-        placeholder="Buscar producto..."
-        className="border border-gray-300 rounded-md px-4 py-2 focus:outline-hidden focus:ring-2 focus:ring-amber-400"
+    <div className="w-full max-w-md">
+      <FormInputSearch
+        value={value}
+        placeholder="Buscar productos..."
+        onChange={(e) => onChange(e.target.value)}
+        onClear={() => onChange("")}
       />
-
-      <input
-        type="submit"
-        value="Buscar"
-        className="bg-amber-400 text-white rounded-md px-4 py-2 ml-2 cursor-pointer"
-      />
-    </form>
+    </div>
   );
 }

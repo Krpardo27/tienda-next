@@ -5,7 +5,7 @@ import OrderSummaryMobile from "./OrderSummaryMobile"
 
 async function getCategories() {
   return await prisma.category.findMany({
-    orderBy: { name: "asc" }, // 🔥 opcional pero pro
+    orderBy: { name: "asc" },
   })
 }
 
@@ -14,12 +14,12 @@ export default async function OrderSidebar() {
 
   return (
     <aside className="md:w-72 hidden md:h-screen bg-white border-r border-zinc-200 lg:flex flex-col">
-      {/* 🔥 LOGO (intacto) */}
+      {/* LOGO (intacto) */}
       <div className="p-3 md:p-6 w-28 lg:w-full border-b border-zinc-200 flex items-center justify-center">
         <Logo />
       </div>
 
-      {/* 📱 MOBILE STICKY CATEGORIES */}
+      {/* MOBILE STICKY CATEGORIES */}
       <div className="md:hidden sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b">
         <div className="flex gap-3 overflow-x-auto px-3 py-3 *:shrink-0">
           {categories.map((category) => (
@@ -32,7 +32,7 @@ export default async function OrderSidebar() {
         <OrderSummaryMobile />
       </div>
 
-      {/* 💻 DESKTOP → sidebar original */}
+      {/* DESKTOP */}
       <nav
         className="
           hidden md:flex flex-col
@@ -48,10 +48,22 @@ export default async function OrderSidebar() {
         ))}
       </nav>
 
-      {/* 🔥 FOOTER opcional (no rompe nada) */}
-      <div className="hidden md:block p-4 border-t border-zinc-200 text-xs text-zinc-400">
-        © 2026 Tu App
-      </div>
+      {/* FOOTER opcional */}
+      <footer className="hidden md:flex items-center justify-between px-5 py-4 border-t border-zinc-200 bg-white/80 backdrop-blur">
+        <div className="flex flex-col">
+          <span className="text-sm font-medium text-zinc-700">
+            Kevin Pardo
+          </span>
+
+          <span className="text-xs text-zinc-400">
+            Panel de administración
+          </span>
+        </div>
+
+        <span className="text-xs text-zinc-400">
+          © {new Date().getFullYear()}
+        </span>
+      </footer>
     </aside>
   )
 }

@@ -1,4 +1,3 @@
-56
 import EditProductForm from "@/src/components/products/EditProductForm"
 import ProductForm from "@/src/components/products/ProductForm"
 import GoBackButton from "@/src/components/ui/GoBackButton"
