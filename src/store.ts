@@ -4,16 +4,16 @@ import { persist } from "zustand/middleware";
 
 interface Store {
   order: CartItem[];
-  favorites: number[];
+  favorites: string[];
   hydrated: boolean;
 
   addToCart: (item: CartItem) => void;
-  increaseQuantity: (id: number) => void;
-  decreaseQuantity: (id: number) => void;
-  removeItem: (id: number) => void;
+  increaseQuantity: (id: string) => void;
+  decreaseQuantity: (id: string) => void;
+  removeItem: (id: string) => void;
   clearCart: () => void;
 
-  toggleFavorite: (id: number) => void;
+  toggleFavorite: (id: string) => void;
   // getTotal: () => number;
 
   setHydrated: () => void;
@@ -21,7 +21,7 @@ interface Store {
 
 export const useStore = create<Store>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       order: [],
       favorites: [],
       hydrated: false,

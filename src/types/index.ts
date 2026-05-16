@@ -4,17 +4,17 @@ import { Order, OrderProducts, Product } from "../generated/prisma/client";
 // ❌ ya no usamos subtotal (estado derivado)
 // ❌ no dependemos directamente de Product
 export type CartItem = {
-  id: number;
+  id: string;
   name: string;
   price: number;
-  image: string;
+  image: string | null;
   quantity: number;
 };
 
 // 🔥 ORDER ITEM (para backend si lo necesitas tipado)
 // 👉 aquí sí puedes usar estructura alineada con DB
 export type OrderItemPayload = {
-  productId: number;
+  productId: string;
   quantity: number;
 };
 

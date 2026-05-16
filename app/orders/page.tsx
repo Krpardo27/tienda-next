@@ -3,10 +3,9 @@
 import useSWR from "swr";
 import { OrderWithProducts } from "@/src/types";
 import { api } from "@/src/lib/axios";
-import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
-import Logo from "@/src/components/ui/Logo";
+import Logo from "@/src/shared/ui/Logo";
 import LatestOrderItem from "@/src/components/order/LatestOrderItem";
 
 export default function OrdersPage() {
@@ -53,13 +52,13 @@ export default function OrdersPage() {
 
     const currentIds = orders.map((o) => o.id);
 
-    // 🔴 primer render → solo guardar
+    //  primer render → solo guardar
     if (prevIdsRef.current === null) {
       prevIdsRef.current = currentIds;
       return;
     }
 
-    // 🔥 detectar nuevas órdenes
+    //  detectar nuevas órdenes
     const newOrders = currentIds.filter(
       (id) => !prevIdsRef.current!.includes(id),
     );
@@ -130,7 +129,7 @@ export default function OrdersPage() {
         <Logo />
 
         <h1 className="text-4xl md:text-6xl font-black tracking-tight">
-          🍽️ Órdenes Listas
+          Órdenes Listas
         </h1>
 
         <p className="text-zinc-400 text-sm md:text-base">

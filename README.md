@@ -1,5 +1,24 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Environment Variables
+
+Before running the app, configure at least:
+
+- `DATABASE_URL`
+- `BETTER_AUTH_SECRET`
+
+Generate a secure secret with Node.js:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+Then place it in your `.env` file:
+
+```env
+BETTER_AUTH_SECRET=your_generated_secret
+```
+
 ## Getting Started
 
 First, run the development server:

@@ -1,6 +1,6 @@
 "use server";
 
-import { ProductSchema } from "@/src/components/admin/schema";
+import { ProductSchema } from "@/src/features/admin/schema";
 import { prisma } from "@/src/lib/prisma";
 import slugify from "slugify";
 
@@ -24,6 +24,8 @@ export async function createProductAction(data: unknown) {
     data: {
       ...result.data,
       slug,
+      isPopular: result.data.isPopular ?? false,
+      available: result.data.available ?? true,
     },
   });
 }

@@ -5,89 +5,117 @@ import "dotenv/config";
 import { categories } from "./data/categories";
 import { products } from "./data/products";
 
+export type SeedProduct = {
+  name: string;
+  slug: string;
+  description?: string;
+  price: number;
+  image?: string;
+  categorySlug: string;
+  isPopular?: boolean;
+  featured?: boolean;
+  available?: boolean;
+};
+
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL!,
 });
 
 const prisma = new PrismaClient({ adapter });
 
-const generateDescription = (name: string) => {
-  const n = name.toLowerCase();
-
-  let base = "Delicioso producto preparado al momento";
-
-  if (n.includes("café") || n.includes("latte") || n.includes("mocha")) {
-    base = "Bebida de café con sabor intenso y notas suaves";
-  } else if (n.includes("dona")) {
-    base = "Dona fresca con cobertura dulce y textura suave";
-  } else if (n.includes("galleta")) {
-    base = "Galletas crujientes con sabor casero";
-  } else if (n.includes("hamburguesa")) {
-    base = "Hamburguesa jugosa con ingredientes seleccionados";
-  } else if (n.includes("pizza")) {
-    base = "Pizza recién horneada con ingredientes frescos";
-  } else if (n.includes("pastel") || n.includes("waffle")) {
-    base = "Postre dulce ideal para cualquier momento";
-  }
-
-  const variations = [
-    "Preparado con ingredientes de alta calidad",
-    "Perfecto para cualquier momento del día",
-    "Una opción deliciosa y equilibrada",
-    "Sabor único que te encantará",
-  ];
-
-  return `${base}. ${variations[Math.floor(Math.random() * variations.length)]}`;
-};
-
 const generateFlags = (index: number) => ({
-  isNew: index % 7 === 0,
   isPopular: index % 5 === 0,
 });
 
-const slugify = (text: string) =>
-  text
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
-
 async function main() {
   try {
-    await prisma.category.createMany({
-      data: categories,
+    for (const category of categories) {
+      await prisma.category.upsert({
+        where: {
+          slug: category.slug,
+        },
+        update: {
+          name: category.name,
+        },
+        create: {
+          id: category.id,
+          name: category.name,
+          slug: category.slug,
+        },
+      });
+    }
+
+    const categoryRecords = await prisma.category.findMany({
+      select: {
+        id: true,
+        slug: true,
+      },
     });
 
-    const toCLP = (price: number) => {
-      const base = Math.round(price * 100);
+    const categoryIdBySlug = new Map(
+      categoryRecords.map((category) => [category.slug, category.id]),
+    );
 
-      return Math.round(base / 10) * 10 - 10;
-    };
+    for (const category of categories) {
+      if (!category.parentSlug) {
+        continue;
+      }
 
-    const productsWithSlug = products.map((product, index) => {
+      const parentId = categoryIdBySlug.get(category.parentSlug);
+
+      if (!parentId) {
+        throw new Error(
+          `No se encontró parentSlug '${category.parentSlug}' para '${category.slug}'`,
+        );
+      }
+
+      await prisma.category.update({
+        where: {
+          slug: category.slug,
+        },
+        data: {
+          parentId,
+        },
+      });
+    }
+
+    const productsForSeed = products.map((product, index) => {
+      const categoryId = categoryIdBySlug.get(product.categorySlug);
       const flags = generateFlags(index);
 
+      if (!categoryId) {
+        throw new Error(
+          `No se encontró categoría '${product.categorySlug}' para producto '${product.slug}'`,
+        );
+      }
+
       return {
-        ...product,
-        price: toCLP(product.price),
-        slug: `${slugify(product.name)}-${index}`,
-        description: generateDescription(product.name),
-        isNew: flags.isNew,
-        isPopular: flags.isPopular,
+        name: product.name,
+        slug: product.slug,
+        price: product.price,
+        description: product.description,
+        image: product.image,
+        isPopular: product.isPopular ?? flags.isPopular,
+        featured: product.featured ?? false,
+        available: product.available ?? true,
+        categoryId,
       };
     });
 
-    for (const product of productsWithSlug) {
+    for (const product of productsForSeed) {
       await prisma.product.upsert({
         where: {
           slug: product.slug,
         },
         update: {
+          name: product.name,
+          price: product.price,
           description: product.description,
-          isNew: product.isNew,
+          image: product.image,
           isPopular: product.isPopular,
+          featured: product.featured,
+          available: product.available,
+          categoryId: product.categoryId,
         },
         create: product,
       });

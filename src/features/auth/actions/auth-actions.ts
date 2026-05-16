@@ -1,16 +1,20 @@
 "use server";
 
+import { requireAuth } from "@/src/lib/auth-server";
 import {
+  ChangePasswordInput,
+  ChangePasswordSchema,
   ForgotPasswordInput,
   ForgotPasswordSchema,
   SetPasswordInput,
   SetPasswordSchema,
   SignInInput,
-  SignInSchema,
   SignUpInput,
   SignUpSchema,
 } from "../schemas/authSchema";
 import { authService } from "../services/AuthService";
+import { headers } from "next/headers";
+import { auth } from "@/src/lib/auth";
 
 export async function signUpAction(input: SignUpInput) {
   const data = SignUpSchema.safeParse(input);
@@ -22,25 +26,33 @@ export async function signUpAction(input: SignUpInput) {
     };
   }
 
-  const response = await authService.register(data.data);
-
-  return response;
+  return authService.register(data.data);
 }
 
 export async function signInAction(input: SignInInput) {
-  const data = SignInSchema.safeParse(input);
-  console.log(data);
+  try {
+    const result = await auth.api.signInEmail({
+      body: {
+        email: input.email,
+        password: input.password,
+      },
+      headers: await headers(),
+    });
 
-  if (!data.success) {
     return {
-      error: "Error de validación",
-      success: "",
+      success: true,
+      data: {
+        user: result?.user ?? null,
+      },
+    };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Error inesperado";
+
+    return {
+      success: false,
+      error: message,
     };
   }
-
-  const response = await authService.login(input);
-
-  return response;
 }
 
 export async function forgotPasswordAction(input: ForgotPasswordInput) {
@@ -70,4 +82,19 @@ export async function setPasswordAction(
   }
   const response = await authService.confirmPasswordReset(input, token);
   return response;
+}
+
+export async function changePasswordAction(input: ChangePasswordInput) {
+  const { session } = await requireAuth();
+  const data = ChangePasswordSchema.safeParse(input);
+
+  if (!session || !data.success) {
+    return {
+      error: "Hubo un error",
+      success: "",
+    };
+  }
+
+  const result = await authService.changePassword(data.data);
+  return result;
 }

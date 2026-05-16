@@ -21,7 +21,11 @@ export const BaseAuthSchema = z.object({
   newPassword: z
     .string()
     .trim()
-    .min(8, { message: "La contraseña debe tener al menos 8 caracteres" })
+    .min(8, { message: "La contraseña debe tener al menos 8 caracteres" }),
+  currentPassword: z
+    .string()
+    .trim()
+    .min(1, { message: "La contraseña debe tener al menos 8 caracteres" }),
 });
 
 export const SignUpSchema = BaseAuthSchema.pick({
@@ -55,9 +59,21 @@ export const SetPasswordSchema = BaseAuthSchema.pick({
   path: ["confirmPassword"],
 });
 
+export const CheckPasswordSchema = z.object({
+  password: z.string().min(1, { error: "La contraseña no debe ir vacía" }),
+});
+
+export const ChangePasswordSchema = BaseAuthSchema.pick({
+  currentPassword: true,
+  newPassword: true,
+  confirmPassword: true,
+}).refine((data) => data.newPassword === data.confirmPassword, {
+  error: "Las contraseñas no coinciden",
+  path: ["confirmPassword"],
+});
+
 export type SignUpInput = z.infer<typeof SignUpSchema>;
 export type SignInInput = z.infer<typeof SignInSchema>;
 export type ForgotPasswordInput = z.infer<typeof ForgotPasswordSchema>;
 export type SetPasswordInput = z.infer<typeof SetPasswordSchema>;
-
-
+export type ChangePasswordInput = z.infer<typeof ChangePasswordSchema>;

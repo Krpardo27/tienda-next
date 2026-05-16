@@ -1,4 +1,4 @@
-import Heading from "@/src/components/ui/Heading";
+import Heading from "@/src/shared/ui/Heading";
 import Link from "next/link";
 
 export default function NotFound() {

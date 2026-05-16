@@ -1,4 +1,3 @@
-import { completeOrder } from "@/actions/complete-order-action";
 import { OrderWithProducts } from "@/src/types";
 import { formatCurrency } from "@/src/utils";
 
@@ -13,25 +12,25 @@ export default function OrderCard({ order }: OrderCardProps) {
       className="
         relative
         rounded-2xl
-        bg-white
+        bg-white 
         px-5 py-6 sm:p-6 lg:p-7
         space-y-6
-        border border-zinc-200
+        border border-zinc-200 
         shadow-xs
         transition-all duration-300
         hover:shadow-xl hover:shadow-black/10
-        hover:-translate-y-[2px]
+        hover:-translate-y-0.5
         group
       "
     >
-      {/* 🔥 Badge ID */}
+      {/* Badge ID */}
       <span
         className="
         absolute top-4 right-4
         text-xs font-semibold
         px-2 py-1 rounded-full
-        bg-zinc-100 text-zinc-600
-        border border-zinc-200
+        bg-zinc-100  text-zinc-600 
+        border border-zinc-200 
       "
       >
         #{order.id}
@@ -60,11 +59,11 @@ export default function OrderCard({ order }: OrderCardProps) {
               className="
                 flex items-center justify-between
                 gap-3
-                border border-zinc-100
+                border border-zinc-100 
                 rounded-xl
                 px-3 py-2
                 transition
-                group-hover:bg-white
+                group-hover:bg-zinc-50 
               "
             >
               <div className="flex items-center gap-2">
@@ -79,7 +78,7 @@ export default function OrderCard({ order }: OrderCardProps) {
                   x{product.quantity}
                 </span>
 
-                <span className="text-sm font-medium text-zinc-800">
+                <span className="text-sm font-medium text-zinc-800 ">
                   {product.product.name}
                 </span>
               </div>
@@ -97,7 +96,7 @@ export default function OrderCard({ order }: OrderCardProps) {
         className="
         flex items-center justify-between
         pt-4
-        border-t border-zinc-200
+        border-t border-zinc-200 
       "
       >
         <span className="text-sm text-zinc-500">Total</span>
@@ -106,30 +105,6 @@ export default function OrderCard({ order }: OrderCardProps) {
           {formatCurrency(order.total)}
         </span>
       </div>
-
-      {/* 🔥 Acción */}
-      <form action={completeOrder}>
-        <input type="hidden" name="order_id" value={order.id} />
-
-        <input
-          type="submit"
-          value="Marcar como completada"
-          className="
-            w-full mt-2
-            rounded-xl
-            bg-linear-to-r from-amber-500 to-amber-600
-            hover:from-amber-600 hover:to-amber-700
-            active:scale-[0.97]
-            transition-all duration-200
-            text-white
-            py-3
-            font-semibold
-            tracking-wide
-            cursor-pointer
-            shadow-md hover:shadow-lg
-          "
-        />
-      </form>
 
       {/* 🔥 Hover Glow */}
       <div

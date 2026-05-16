@@ -1,62 +1,73 @@
-import AdminSidebar from "@/src/components/admin/AdminSidebar";
-import AdminMobileNav from "@/src/components/ui/AdminMobileNav";
-import LogoutButton from "@/src/components/ui/LogoutButton";
+import AdminSidebar from "@/src/shared/components/admin/AdminSidebar";
+import AdminMobileNav from "@/src/shared/ui/AdminMobileNav";
+import HistoryNavigationGuard from "@/src/shared/ui/HistoryNavigationGuard";
+import LogoutButton from "@/src/shared/ui/LogoutButton";
+import { requireAuth } from "@/src/lib/auth-server";
+import { redirect } from "next/navigation";
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { isAuth } = await requireAuth();
+
+  if (!isAuth) {
+    redirect("/auth/login");
+  }
 
   return (
     <>
-      <div className="flex min-h-screen bg-gray-100">
+      <HistoryNavigationGuard />
+      <div
+        className="flex min-h-screen bg-zinc-50  text-zinc-900  transition-colors duration-300 "
+      >
+        {/* SIDEBAR */}
         <aside
           className="
-  hidden md:flex md:flex-col
-  md:w-72
-  bg-white border-r border-gray-200
-  md:sticky md:top-0 md:h-screen
-"
+            hidden md:flex md:flex-col
+            md:w-72
+            border-r
+            border-[var(--border)]
+            bg-[var(--surface)]
+            
+            
+            md:sticky md:top-0 md:h-screen
+          "
         >
-          {/* SCROLLABLE */}
+          {/* CONTENT */}
           <div className="flex-1 overflow-y-auto">
             <AdminSidebar />
           </div>
 
-          {/* FIXED BOTTOM */}
-          <div className="p-4 border-t border-gray-200">
+          {/* FOOTER */}
+          <div
+            className="
+              p-4¿
+              border-t
+              border-[var(--border)]
+            "
+          >
             <LogoutButton />
           </div>
         </aside>
 
-        {/* Main */}
-        <main className="flex-1 flex flex-col">
-          {/* Topbar sutil (no rompe nada) */}
-          <div
+        {/* MAIN */}
+        <main className="flex-1 flex flex-col min-w-0">
+          <section
             className="
-            h-14
-            bg-white/80 backdrop-blur-sm
-            border-b border-gray-200
-            flex items-center
-            px-6
-          "
-          >
-            <span className="text-sm font-medium text-gray-600">
-              Panel de administración
-            </span>
-          </div>
-
-          {/* Content */}
-          <div
-            className="
-            md:flex-1 md:h-screen md:overflow-y-scroll bg-gray-100 p-5
-          "
+              flex-1
+              overflow-y-auto
+              bg-zinc-50
+              p-5
+              transition-colors duration-300
+            "
           >
             <div className="max-w-7xl mx-auto w-full">{children}</div>
-          </div>
+          </section>
         </main>
 
+        {/* MOBILE NAV */}
         <AdminMobileNav />
       </div>
     </>

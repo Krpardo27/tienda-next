@@ -6,5 +6,5 @@ export default async function DashboardPage() {
 
   if (!isAuth) redirect("/auth/login");
 
-  redirect("/dashboard/orders");
+  redirect("/dashboard/products");
 }

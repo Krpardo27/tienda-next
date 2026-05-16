@@ -1,45 +1,54 @@
 @import "tailwindcss";
 
+:root {
+  --background: #f5f7fa;
+  --foreground: #111827;
+  --border: #e5e7eb;
+  --surface: #ffffff;
+  --surface-secondary: #eef2f7;
+  --muted: #6b7280;
+}
+
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
+  * {
+    border-color: var(--border);
+  }
+
+  html,
+  body {
+    min-height: 100%;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
   }
 }
 
-/* 🌑 Scrollbar base */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: color-mix(in srgb, var(--background) 80%, transparent);
 }
 
-/* Thumb (AMBAR 🔥) */
 ::-webkit-scrollbar-thumb {
-  background: rgba(245, 158, 11, 0.6); /* amber-500 */
+  background: rgba(245, 158, 11, 0.6);
   border-radius: 9999px;
   transition: all 0.2s ease;
 }
 
-/* Hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(217, 119, 6, 0.9); /* amber-600 */
+  background: rgba(217, 119, 6, 0.9);
 }
 
-/* Active (cuando haces click) */
 ::-webkit-scrollbar-thumb:active {
-  background: rgba(180, 83, 9, 1); /* amber-700 */
+  background: rgba(180, 83, 9, 1);
 }
 
-/* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(245,158,11,0.6) transparent;
+  scrollbar-color: rgba(245, 158, 11, 0.6) transparent;
 }

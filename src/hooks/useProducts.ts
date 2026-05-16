@@ -1,12 +1,22 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import useSWR from "swr";
 import { fetchProducts } from "../api/products";
 
 export function useProducts(category: string) {
-  return useQuery({
-    queryKey: ["products", category],
-    queryFn: () => fetchProducts(category),
-    staleTime: 1000 * 60 * 5, 
-  });
+  const key = category ? ["products", category] : null;
+
+  const { data, isLoading, error } = useSWR(
+    key,
+    ([, currentCategory]) => fetchProducts(currentCategory),
+    {
+      revalidateOnFocus: false,
+    },
+  );
+
+  return {
+    data,
+    isLoading,
+    error: error instanceof Error ? error : null,
+  };
 }

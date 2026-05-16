@@ -6,13 +6,6 @@ export function formatCurrency(value: number) {
   }).format(value);
 }
 
-export function getImagePath(imagePath: string) {
-  if (!imagePath) return "";
-
-  try {
-    new URL(imagePath);
-    return imagePath;
-  } catch {
-    return `/products/${imagePath}.jpg`;
-  }
+export function getImagePath(image?: string | null) {
+  return image || "";
 }

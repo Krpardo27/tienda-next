@@ -1,8 +1,8 @@
 
-import AddProductForm from '@/src/components/products/AddProductForm'
-import ProductForm from '@/src/components/products/ProductForm'
-import GoBackButton from '@/src/components/ui/GoBackButton'
-import Heading from '@/src/components/ui/Heading'
+import AddProductForm from '@/src/shared/components/forms/AddProductForm'
+import ProductForm from '@/src/shared/components/forms/ProductForm'
+import GoBackButton from '@/src/shared/ui/GoBackButton'
+import Heading from '@/src/shared/ui/Heading'
 import React from 'react'
 
 export default function CreateProductPage() {

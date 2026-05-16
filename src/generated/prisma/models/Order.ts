@@ -386,6 +386,14 @@ export type OrderScalarRelationFilter = {
   isNot?: Prisma.OrderWhereInput
 }
 
+export type FloatFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type OrderCreateNestedOneWithoutOrderProductsInput = {
   create?: Prisma.XOR<Prisma.OrderCreateWithoutOrderProductsInput, Prisma.OrderUncheckedCreateWithoutOrderProductsInput>
   connectOrCreate?: Prisma.OrderCreateOrConnectWithoutOrderProductsInput

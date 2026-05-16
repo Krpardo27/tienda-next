@@ -1,5 +1,5 @@
 import { useStore } from '@/src/store';
-import { CartItem, OrderItemPayload } from '@/src/types';
+import { CartItem } from '@/src/types';
 import { formatCurrency, getImagePath } from '@/src/utils';
 import { XCircleIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image';
@@ -17,19 +17,26 @@ export default function ProductDetails({ item }: ProductDetailsProps) {
   const decreaseQuantity = useStore((state) => state.decreaseQuantity);
   const removeItem = useStore((state) => state.removeItem);
   const disableIncrease = useMemo(() => item.quantity === MAX_ITEMS, [item]);
+  const imagePath = getImagePath(item.image ?? "");
 
   return (
-    <div className="flex gap-4 p-4 bg-white border border-gray-200 rounded-2xl shadow-xs hover:shadow-md transition">
+    <div className="flex gap-4 p-4 bg-white  border border-gray-200  rounded-2xl shadow-xs hover:shadow-md transition">
 
       {/* Imagen */}
-      <div className="relative w-24 h-24 min-w-[96px] rounded-xl overflow-hidden bg-gray-100 shrink-0">
-        <Image
-          src={getImagePath(item.image)}
-          alt={item.name}
-          fill
-          sizes="96px"
-          className="object-cover"
-        />
+      <div className="relative w-24 h-24 min-w-24 rounded-xl overflow-hidden bg-gray-100  shrink-0">
+        {imagePath ? (
+          <Image
+            src={imagePath}
+            alt={item.name}
+            fill
+            sizes="96px"
+            className="object-cover"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center text-xs text-gray-500">
+            Sin imagen
+          </div>
+        )}
       </div>
 
       {/* Contenido */}
@@ -37,7 +44,7 @@ export default function ProductDetails({ item }: ProductDetailsProps) {
 
         {/* Top */}
         <div className="flex justify-between items-start gap-2">
-          <h3 className="text-sm md:text-base text-gray-800 leading-tight line-clamp-2">
+          <h3 className="text-sm md:text-base text-gray-800  leading-tight line-clamp-2">
             {item.name}
           </h3>
 
@@ -59,13 +66,13 @@ export default function ProductDetails({ item }: ProductDetailsProps) {
         <div className="flex flex-col items-start mt-2 gap-2">
 
           {/* Quantity */}
-          <div className="flex items-center gap-2 px-2 py-1 bg-gray-100 rounded-full shrink-0">
+          <div className="flex items-center gap-2 px-2 py-1 bg-gray-100  rounded-full shrink-0">
             <button
               type="button"
               onClick={() => decreaseQuantity(item.id)}
-              className="p-1 rounded-full hover:bg-gray-200 transition"
+              className="p-1 rounded-full hover:bg-gray-200  transition"
             >
-              <MinusIcon className="h-4 w-4 text-gray-700" />
+              <MinusIcon className="h-4 w-4 text-gray-700 " />
             </button>
 
             <span className="text-sm font-semibold w-4 text-center">
@@ -75,15 +82,15 @@ export default function ProductDetails({ item }: ProductDetailsProps) {
             <button
               type="button"
               onClick={() => increaseQuantity(item.id)}
-              className="p-1 rounded-full hover:bg-gray-200 transition"
+              className="p-1 rounded-full hover:bg-gray-200  transition"
               disabled={disableIncrease}
             >
-              <PlusIcon className="h-4 w-4 text-gray-700" />
+              <PlusIcon className="h-4 w-4 text-gray-700 " />
             </button>
           </div>
 
           {/* Subtotal */}
-          <p className="text-sm font-semibold text-gray-700 truncate">
+          <p className="text-sm font-semibold text-gray-700  truncate">
             <span className="text-gray-400 mr-1">Subtotal</span>
             {formatCurrency(item.price * item.quantity)}
           </p>

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import ForgotPasswordForm from "@/src/features/auth/components/ForgotPasswordForm";
 import { FiLogIn, FiUserPlus } from "react-icons/fi";
-import Heading from "@/src/components/ui/Heading";
+import Heading from "@/src/shared/ui/Heading";
 
 export const metadata: Metadata = {
   title:  "Recuperar contraseña",
@@ -27,9 +27,9 @@ export default function ForgotPasswordPage() {
           href="/auth/login"
           className="
       flex items-center justify-center gap-2
-      w-full rounded-lg border border-zinc-200
-      py-3 text-sm font-medium text-zinc-800
-      bg-white hover:bg-zinc-50
+      w-full rounded-lg border border-zinc-200 
+      py-3 text-sm font-medium text-zinc-800 
+      bg-white  hover:bg-zinc-50 
       transition active:scale-[0.99]
     "
         >

@@ -69,24 +69,39 @@ model Verification {
 }
 
 model Category {
-  id       Int       @id @default(autoincrement())
+  id       String    @id @default(cuid())
+
   name     String
   slug     String    @unique
+
+  parentId String?
+
+  parent   Category? @relation("CategoryTree", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryTree")
+
   products Product[]
 }
 
 model Product {
-  id          Int             @id @default(autoincrement())
+  id          String   @id @default(cuid())
   name        String
-  slug        String          @unique
-  price       Float
-  image       String
-  categoryId  Int
+  slug        String   @unique
   description String?
-  isNew       Boolean         @default(false)
-  isPopular   Boolean         @default(false)
-  orderItems  OrderProducts[]
-  category    Category        @relation(fields: [categoryId], references: [id])
+  price       Int
+  image       String?
+
+  isPopular   Boolean  @default(false)
+
+  featured    Boolean  @default(false)
+
+  available   Boolean  @default(true)
+
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  orderProducts OrderProducts[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Order {
@@ -102,7 +117,7 @@ model Order {
 model OrderProducts {
   id        Int     @id @default(autoincrement())
   orderId   Int
-  productId Int
+  productId String
   quantity  Int
   order     Order   @relation(fields: [orderId], references: [id])
   product   Product @relation(fields: [productId], references: [id])

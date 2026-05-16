@@ -1,356 +1,612 @@
-export const products = [
+export type Product = {
+  name: string;
+  slug: string;
+
+  description?: string;
+
+  price: number;
+
+  image?: string;
+
+  categorySlug: string;
+
+  isPopular?: boolean;
+
+  featured?: boolean;
+
+  available?: boolean;
+};
+
+export const products: Product[] = [
+  // ======================================
+  // ALMUERZOS
+  // ======================================
+
   {
-    name: "Café Caramel con Chocolate",
-    price: 59.9,
-    image: "cafe_01",
-    categoryId: 1,
+    name: "Lomo Liso",
+    slug: "almuerzo-lomo-liso",
+
+    description:
+      "Incluye dos acompañamientos y un bebestible. Acompañamientos: arroz, huevo frito, papas fritas, ensalada, puré o vegetales salteados.",
+
+    price: 10990,
+
+    categorySlug: "almuerzos",
+
+    featured: true,
+
+    available: true,
+  },
+
+  {
+    name: "Carne al Jugo",
+    slug: "almuerzo-carne-jugo",
+
+    description: "Incluye dos acompañamientos y un bebestible.",
+
+    price: 10990,
+
+    categorySlug: "almuerzos",
+
+    available: true,
+  },
+
+  {
+    name: "Salmón a la Mantequilla",
+    slug: "almuerzo-salmon-mantequilla",
+
+    description: "Incluye dos acompañamientos y un bebestible.",
+
+    price: 10990,
+
+    categorySlug: "almuerzos",
+
+    available: true,
+  },
+
+  {
+    name: "Reineta a la Mantequilla",
+    slug: "almuerzo-reineta-mantequilla",
+
+    description: "Incluye dos acompañamientos y un bebestible.",
+
+    price: 10990,
+
+    categorySlug: "almuerzos",
+
+    available: true,
+  },
+
+  {
+    name: "Merluza Frita",
+    slug: "almuerzo-merluza-frita",
+
+    description: "Incluye dos acompañamientos y un bebestible.",
+
+    price: 10990,
+
+    categorySlug: "almuerzos",
+
+    available: true,
+  },
+
+  {
+    name: "Ensalada Hipocalórica",
+    slug: "almuerzo-ensalada-hipocalorica",
+
+    description: "Incluye dos acompañamientos y un bebestible.",
+
+    price: 10990,
+
+    categorySlug: "almuerzos",
+
+    available: true,
+  },
+
+  {
+    name: "Atún Sellado",
+    slug: "almuerzo-atun-sellado",
+
+    description: "Incluye dos acompañamientos y un bebestible.",
+
+    price: 10990,
+
+    categorySlug: "almuerzos",
+
+    available: true,
+  },
+
+  {
+    name: "Pollo a la Plancha",
+    slug: "almuerzo-pollo-plancha",
+
+    description: "Incluye dos acompañamientos y un bebestible.",
+
+    price: 10990,
+
+    categorySlug: "almuerzos",
+
+    available: true,
+  },
+
+  {
+    name: "Milanesa de Pollo",
+    slug: "almuerzo-milanesa-pollo",
+
+    description: "Incluye dos acompañamientos y un bebestible.",
+
+    price: 10990,
+
+    categorySlug: "almuerzos",
+
+    available: true,
+  },
+
+  {
+    name: "Tallarines Saltados",
+    slug: "almuerzo-tallarines-saltados",
+
+    description: "Incluye dos acompañamientos y un bebestible.",
+
+    price: 10990,
+
+    categorySlug: "almuerzos",
+
+    available: true,
+  },
+
+  {
+    name: "Filete Saltado",
+    slug: "almuerzo-filete-saltado",
+
+    description: "Incluye dos acompañamientos y un bebestible.",
+
+    price: 13990,
+
+    categorySlug: "almuerzos",
+
+    featured: true,
+
+    available: true,
+  },
+
+  // ======================================
+  // AGREGADOS
+  // ======================================
+
+  {
+    name: "Papas Fritas",
+    slug: "papas-fritas-agregado",
+
+    price: 1590,
+
+    categorySlug: "agregados",
+
+    available: true,
+  },
+
+  {
+    name: "Puré",
+    slug: "pure-agregado",
+
+    price: 1290,
+
+    categorySlug: "agregados",
+
+    available: true,
+  },
+
+  {
+    name: "Arroz",
+    slug: "arroz-agregado",
+
+    price: 990,
+
+    categorySlug: "agregados",
+
+    available: true,
+  },
+
+  {
+    name: "Huevo Frito",
+    slug: "huevo-frito-agregado",
+
+    price: 990,
+
+    categorySlug: "agregados",
+
+    available: true,
+  },
+
+  {
+    name: "Vegetales Salteados",
+    slug: "vegetales-saltados",
+
+    price: 990,
+
+    categorySlug: "agregados",
+
+    available: true,
+  },
+
+  {
+    name: "Ensalada del Día",
+    slug: "ensalada-dia",
+
+    price: 990,
+
+    categorySlug: "agregados",
+
+    available: true,
+  },
+
+  {
+    name: "Palta",
+    slug: "palta",
+
+    price: 1890,
+
+    categorySlug: "agregados",
+
+    available: true,
+  },
+
+  {
+    name: "Empanadas Tomate Albahaca",
+    slug: "empanadas-tomate-albahaca",
+
+    price: 2490,
+
+    categorySlug: "agregados",
+
+    available: true,
+  },
+
+  // Carnes
+  {
+    name: "Filete Saltado",
+    slug: "filete-saltado",
+    description: "200 gr de carne filete acompañados de papas fritas y arroz",
+    price: 13990,
+    categorySlug: "carnes",
+    available: true,
   },
   {
-    name: "Café Frio con Chocolate Grande",
-    price: 49.9,
-    image: "cafe_02",
-    categoryId: 1,
+    name: "Lomo a la Pobre",
+    slug: "lomo-a-la-pobre",
+    description:
+      "200 gr de lomo acompañado de papas frita, huevo frito y cebolla caramelizada",
+    price: 13990,
+    categorySlug: "carnes",
+    available: true,
   },
   {
-    name: "Latte Frio con Chocolate Grande",
-    price: 54.9,
-    image: "cafe_03",
-    categoryId: 1,
+    name: "Tallarines Saltados",
+    slug: "tallarines-saltados",
+    description:
+      "Tallarines saltados en wok acompañados de 200 gr de pollo, 200 gr de camaron o mixto",
+    price: 10990,
+    categorySlug: "carnes",
+    available: true,
   },
   {
-    name: "Latte Frio con Chocolate Grande",
-    price: 54.9,
-    image: "cafe_04",
-    categoryId: 1,
+    name: "Pollo a la Pobre",
+    slug: "pollo-a-la-pobre",
+    description:
+      "200 gr de pollo acompañados de papas fritas, huevo frito y cebolla caramelizada",
+    price: 13990,
+    categorySlug: "carnes",
+    available: true,
   },
   {
-    name: "Malteada Fria con Chocolate Grande",
-    price: 54.9,
-    image: "cafe_05",
-    categoryId: 1,
+    name: "Crudo",
+    slug: "crudo",
+    description:
+      "200 gr de carne magra, acompañado de cebolla morada, pepinillos, mayonesa, ají verde y pan en rodajas",
+    price: 13990,
+    categorySlug: "carnes",
+    available: true,
   },
   {
-    name: "Café Mocha Caliente Chico",
-    price: 39.9,
-    image: "cafe_06",
-    categoryId: 1,
+    name: "Chuletas de Cerdo",
+    slug: "chuletas-de-cerdo",
+    description:
+      "Tres chuletas de cerdo, acompañadas de papas fritas, huevo frito y cebolla caramelizada",
+    price: 13990,
+    categorySlug: "carnes",
+    available: true,
+  },
+
+  // Del mar
+  {
+    name: "Tartaro de Atún",
+    slug: "tartaro-de-atun",
+    description:
+      "Tomate cherry, aceite de sésamo, palta, lechuga hidropónica, tostadas, acompañado de salsa Jack Daniels",
+    price: 12990,
+    categorySlug: "del-mar",
+    available: true,
   },
   {
-    name: "Café Mocha Caliente Grande con Chocolate",
-    price: 59.9,
-    image: "cafe_07",
-    categoryId: 1,
+    name: "Ceviche a la Peruana",
+    slug: "ceviche-a-la-peruana",
+    description:
+      "Acompañado de una cama de lechuga hidropónica, cancha, palta y tostadas",
+    price: 13990,
+    categorySlug: "del-mar",
+    available: true,
   },
   {
-    name: "Café Caliente Capuchino Grande",
-    price: 59.9,
-    image: "cafe_08",
-    categoryId: 1,
+    name: "Machas a la Parmesana",
+    slug: "machas-a-la-parmesana",
+    description: "Gratinado de quesos mozzarella y parmesano",
+    price: 16990,
+    categorySlug: "del-mar",
+    available: true,
+  },
+
+  // Ensaladas
+  {
+    name: "Ensalada Cesar Pollo",
+    slug: "ensalada-cesar-pollo",
+    description:
+      "Lechuga hidropónica, crutones, palta, queso parmesano y tomates cherrys, acompañada de salsa césar",
+    price: 10990,
+    categorySlug: "ensaladas",
+    available: true,
   },
   {
-    name: "Café Mocha Caliente Mediano",
-    price: 49.9,
-    image: "cafe_09",
-    categoryId: 1,
+    name: "Ensalada del Chef",
+    slug: "ensalada-del-chef",
+    description:
+      "Salmón a la plancha, camarones salteados, lechuga hidropónica, palta, tomate cherry, queso parmesano, ciboulette, almendras laminadas, aderezo mostaza y miel",
+    price: 11990,
+    categorySlug: "ensaladas",
+    available: true,
   },
   {
-    name: "Café Mocha Frio con Caramelo Mediano",
-    price: 49.9,
-    image: "cafe_10",
-    categoryId: 1,
+    name: "Ensalada Mar y Tierra",
+    slug: "ensalada-mar-y-tierra",
+    description:
+      "Camarones y pollo salteado, lechuga hidropónica, palta, queso parmesano, almendras laminadas y aderezo de mostaza y miel",
+    price: 11990,
+    categorySlug: "ensaladas",
+    available: true,
   },
   {
-    name: "Café Mocha Frio con Chocolate Mediano",
-    price: 49.9,
-    image: "cafe_11",
-    categoryId: 1,
+    name: "Ensalada Atún Steak",
+    slug: "ensalada-atun-steak",
+    description:
+      "Atún sellado en sésamo, acompañado de salsa Jack Daniels, junto con tomate cherry, poalta y almendra laminadas",
+    price: 13990,
+    categorySlug: "ensaladas",
+    available: true,
+  },
+
+  // Tablas
+  {
+    name: "Tabla Americana",
+    slug: "tabla-americana",
+    description:
+      "5 alitas Bbq, chicken tenders, mozzarella sticks, papas fritas y aros de cebolla, acompañada de salsa bbq",
+    price: 22990,
+    categorySlug: "tablas",
+    available: true,
   },
   {
-    name: "Café Espresso",
-    price: 29.9,
-    image: "cafe_12",
-    categoryId: 1,
+    name: "Tabla Fuente Vicuña",
+    slug: "tabla-fuente-vicuna",
+    description:
+      "Pollo a la mostaza, empanadas de queso caseras, mozzarella sticks, quesadillas de mechada, acompañada de salsa de ajo & sour cream",
+    price: 23990,
+    categorySlug: "tablas",
+    available: true,
   },
   {
-    name: "Café Capuchino Grande con Caramelo",
-    price: 59.9,
-    image: "cafe_13",
-    categoryId: 1,
+    name: "Tabla Mar y Fuego",
+    slug: "tabla-mar-y-fuego",
+    description:
+      "Lomo en tiras, pollo en tiras, camarones, cebolla morada, tomate, ciboulette, cilantro, salsa de soya, acompañado de tostadas y mayonesa casera",
+    price: 23990,
+    categorySlug: "tablas",
+    available: true,
+  },
+
+  // Hamburguesas
+  {
+    name: "Burguer Luco",
+    slug: "burguer-luco",
+    description: "200 gr de carne y queso mozzarella",
+    price: 9990,
+    categorySlug: "hamburguesas",
+    available: true,
   },
   {
-    name: "Café Caramelo Grande",
-    price: 59.9,
-    image: "cafe_14",
-    categoryId: 1,
+    name: "Cheese Burguer",
+    slug: "cheese-burguer",
+    description: "200 gr de carne, tocino, queso cheddar y salsa de la casa",
+    price: 10990,
+    categorySlug: "hamburguesas",
+    available: true,
   },
   {
-    name: "Paquete de 3 donas de Chocolate",
-    price: 39.9,
-    image: "donas_01",
-    categoryId: 4,
+    name: "Big Boss",
+    slug: "big-boss",
+    description:
+      "200 gr de carne, lechuga hidropónica, rodajas de tomate, cebolla morada, pepinillos y salsa de la casa",
+    price: 10990,
+    categorySlug: "hamburguesas",
+    available: true,
   },
   {
-    name: "Paquete de 3 donas Glaseadas",
-    price: 39.9,
-    image: "donas_02",
-    categoryId: 4,
+    name: "Burguer Italiana",
+    slug: "burguer-italiana",
+    description: "200 gr de carne, palta, rodajas de tomate y salsa de la casa",
+    price: 11990,
+    categorySlug: "hamburguesas",
+    available: true,
   },
   {
-    name: "Dona de Fresa ",
-    price: 19.9,
-    image: "donas_03",
-    categoryId: 4,
+    name: "Burguer Quinoa",
+    slug: "burguer-quinoa",
+    description:
+      "200 gr de quinoa, rúcula, cebolla caramelizada, champiñon & mayonesa de la casa",
+    price: 11990,
+    categorySlug: "hamburguesas",
+    available: true,
   },
   {
-    name: "Dona con Galleta de Chocolate ",
-    price: 19.9,
-    image: "donas_04",
-    categoryId: 4,
+    name: "La Gringa",
+    slug: "la-gringa",
+    description:
+      "200 gr de quinoa, lechuga hidropónica, tomate, tocino, cheddar, aros de cebolla y salsa BBQ",
+    price: 11990,
+    categorySlug: "hamburguesas",
+    available: true,
   },
   {
-    name: "Dona glass con Chispas Sabor Fresa ",
-    price: 19.9,
-    image: "donas_05",
-    categoryId: 4,
+    name: "Truffle Burguer",
+    slug: "truffle-burguer",
+    description:
+      "200 gr de carne, rúcula, cebolla caramelizada, champiñon, queso mozzarella, mayonesa de la casa y aceite de trufa",
+    price: 12990,
+    categorySlug: "hamburguesas",
+    available: true,
+  },
+
+  // Sandwiches
+  {
+    name: "Pirata",
+    slug: "pirata",
+    description:
+      "Merluza, lechuga hidropónica, rodajas de tomate, cebolla morada, ají verde y mayonesa de la casa",
+    price: 10990,
+    categorySlug: "sandwiches",
+    available: true,
   },
   {
-    name: "Dona glass con Chocolate ",
-    price: 19.9,
-    image: "donas_06",
-    categoryId: 4,
+    name: "Pollo Crispy",
+    slug: "pollo-crispy",
+    description: "Pollo crispy, rodajas de tomate, palta y mayonesa de la casa",
+    price: 10990,
+    categorySlug: "sandwiches",
+    available: true,
+  },
+
+  {
+    name: "Mechada Luco",
+    slug: "mechada-luco",
+    description: "Carne mechada y queso mozzarella",
+    price: 10990,
+    categorySlug: "sandwiches",
+    available: true,
   },
   {
-    name: "Dona de Chocolate con MÁS Chocolate ",
-    price: 19.9,
-    image: "donas_07",
-    categoryId: 4,
+    name: "Mechada Italiana",
+    slug: "mechada-italiana",
+    description:
+      "Carne mechada, palta, rodajas de tomate y mayonesa de la casa",
+    price: 11990,
+    categorySlug: "sandwiches",
+    available: true,
   },
   {
-    name: "Paquete de 3 donas de Chocolate ",
-    price: 39.9,
-    image: "donas_08",
-    categoryId: 4,
+    name: "Ave Italiana",
+    slug: "ave-italiana",
+    description:
+      "Pollo en tiras, palta, rodajas de tomate y mayonesa de la casa",
+    price: 10990,
+    categorySlug: "sandwiches",
+    available: true,
   },
   {
-    name: "Paquete de 3 donas con Vainilla y Chocolate ",
-    price: 39.9,
-    image: "donas_09",
-    categoryId: 4,
+    name: "Churrasco Lomo Italiano",
+    slug: "churrasco-lomo-italiano",
+    description:
+      "Tiras de lomo, palta, rodajas de tomate y mayonesa de la casa",
+    price: 10990,
+    categorySlug: "sandwiches",
+    available: true,
   },
   {
-    name: "Paquete de 6 Donas",
-    price: 69.9,
-    image: "donas_10",
-    categoryId: 4,
+    name: "Churrasco Lomo Luco",
+    slug: "churrasco-lomo-luco",
+    description: "Tiras de lomo, queso fundido",
+    price: 10990,
+    categorySlug: "sandwiches",
+    available: true,
+  },
+
+  // Completos
+  {
+    name: "Completo Italiano",
+    slug: "completo-italiano",
+
+    price: 4490,
+
+    categorySlug: "completos",
+
+    available: true,
   },
   {
-    name: "Paquete de 3 Variadas",
-    price: 39.9,
-    image: "donas_11",
-    categoryId: 4,
+    name: "Especial Palta",
+    slug: "especial-palta",
+
+    description:
+      "Pan de completo, vianesa XL, palta, tomate & mayonesa de la casa",
+
+    price: 4990,
+
+    categorySlug: "completos",
+
+    available: true,
   },
   {
-    name: "Dona Natural con Chocolate",
-    price: 19.9,
-    image: "donas_12",
-    categoryId: 4,
+    name: "Especial Tomate",
+    slug: "especial-tomate",
+
+    description: "Pan de completo, vianesa XL, tomate, mayonesa de la casa",
+
+    price: 4990,
+
+    categorySlug: "completos",
+
+    available: true,
   },
   {
-    name: "Paquete de 3 Donas de Chocolate con Chispas",
-    price: 39.9,
-    image: "donas_13",
-    categoryId: 4,
+    name: "Ass Italiano",
+    slug: "ass-italiano",
+
+    description: "Pan de completo, carne, palta, tomate, mayonesa de la casa",
+
+    price: 5990,
+
+    categorySlug: "ass",
+
+    available: true,
   },
   {
-    name: "Dona Chocolate y Coco",
-    price: 19.9,
-    image: "donas_14",
-    categoryId: 4,
+    name: "Ass Luco",
+    slug: "ass-luco",
+
+    description: "Pan de completo, carne, queso mozzarella",
+
+    price: 5590,
+
+    categorySlug: "ass",
+
+    available: true,
   },
   {
-    name: "Paquete Galletas de Chocolate",
-    price: 29.9,
-    image: "galletas_01",
-    categoryId: 6,
-  },
-  {
-    name: "Paquete Galletas de Chocolate y Avena",
-    price: 39.9,
-    image: "galletas_02",
-    categoryId: 6,
-  },
-  {
-    name: "Paquete de Muffins de Vainilla",
-    price: 39.9,
-    image: "galletas_03",
-    categoryId: 6,
-  },
-  {
-    name: "Paquete de 4 Galletas de Avena",
-    price: 24.9,
-    image: "galletas_04",
-    categoryId: 6,
-  },
-  {
-    name: "Galletas de Mantequilla Variadas",
-    price: 39.9,
-    image: "galletas_05",
-    categoryId: 6,
-  },
-  {
-    name: "Galletas de sabores frutales",
-    price: 39.9,
-    image: "galletas_06",
-    categoryId: 6,
-  },
-  {
-    name: "Hamburguesa Sencilla",
-    price: 59.9,
-    image: "hamburguesas_01",
-    categoryId: 2,
-  },
-  {
-    name: "Hamburguesa de Pollo",
-    price: 59.9,
-    image: "hamburguesas_02",
-    categoryId: 2,
-  },
-  {
-    name: "Hamburguesa de Pollo y Chili",
-    price: 59.9,
-    image: "hamburguesas_03",
-    categoryId: 2,
-  },
-  {
-    name: "Hamburguesa Queso y  Pepinos",
-    price: 59.9,
-    image: "hamburguesas_04",
-    categoryId: 2,
-  },
-  {
-    name: "Hamburguesa Cuarto de Libra",
-    price: 59.9,
-    image: "hamburguesas_05",
-    categoryId: 2,
-  },
-  {
-    name: "Hamburguesa Doble Queso",
-    price: 69.9,
-    image: "hamburguesas_06",
-    categoryId: 2,
-  },
-  {
-    name: "Hot Dog Especial",
-    price: 49.9,
-    image: "hamburguesas_07",
-    categoryId: 2,
-  },
-  {
-    name: "Paquete 2 Hot Dogs",
-    price: 69.9,
-    image: "hamburguesas_08",
-    categoryId: 2,
-  },
-  {
-    name: "4 Rebanadas de Pay de Queso",
-    price: 69.9,
-    image: "pastel_01",
-    categoryId: 5,
-  },
-  {
-    name: "Waffle Especial",
-    price: 49.9,
-    image: "pastel_02",
-    categoryId: 5,
-  },
-  {
-    name: "Croissants De la casa",
-    price: 39.9,
-    image: "pastel_03",
-    categoryId: 5,
-  },
-  {
-    name: "Pay de Queso",
-    price: 19.9,
-    image: "pastel_04",
-    categoryId: 5,
-  },
-  {
-    name: "Pastel de Chocolate",
-    price: 29.9,
-    image: "pastel_05",
-    categoryId: 5,
-  },
-  {
-    name: "Rebanada Pastel de Chocolate",
-    price: 29.9,
-    image: "pastel_06",
-    categoryId: 5,
-  },
-  {
-    name: "Pizza Spicy con Doble Queso",
-    price: 69.9,
-    image: "pizzas_01",
-    categoryId: 3,
-  },
-  {
-    name: "Pizza Jamón y Queso",
-    price: 69.9,
-    image: "pizzas_02",
-    categoryId: 3,
-  },
-  {
-    name: "Pizza Doble Queso",
-    price: 69.9,
-    image: "pizzas_03",
-    categoryId: 3,
-  },
-  {
-    name: "Pizza Especial de la Casa",
-    price: 69.9,
-    image: "pizzas_04",
-    categoryId: 3,
-  },
-  {
-    name: "Pizza Chorizo",
-    price: 69.9,
-    image: "pizzas_05",
-    categoryId: 3,
-  },
-  {
-    name: "Pizza Hawaiana",
-    price: 69.9,
-    image: "pizzas_06",
-    categoryId: 3,
-  },
-  {
-    name: "Pizza Tocino",
-    price: 69.9,
-    image: "pizzas_07",
-    categoryId: 3,
-  },
-  {
-    name: "Pizza Vegetales y Queso",
-    price: 69.9,
-    image: "pizzas_08",
-    categoryId: 3,
-  },
-  {
-    name: "Pizza Pepperoni y Queso",
-    price: 69.9,
-    image: "pizzas_09",
-    categoryId: 3,
-  },
-  {
-    name: "Pizza Aceitunas y Queso",
-    price: 69.9,
-    image: "pizzas_10",
-    categoryId: 3,
-  },
-  {
-    name: "Pizza Queso, Jamón y Champiñones",
-    price: 69.9,
-    image: "pizzas_11",
-    categoryId: 3,
+    name: "Ass Brasileño",
+    slug: "ass-brasileno",
+
+    description: "Pan de completo, carne, queso mozzarella y palta",
+
+    price: 5990,
+
+    categorySlug: "ass",
+
+    available: true,
   },
 ];
