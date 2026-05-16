@@ -19,7 +19,6 @@ export default function OrderCategoryMobile({ categories }: Props) {
 
   return (
     <div className="sticky top-0 z-50 isolate lg:hidden">
-      {/* Logo header */}
       <div
         className={`relative z-50 flex justify-center border-b border-(--border) bg-white/95 backdrop-blur-md transition-all duration-300 ${scrolled ? "py-1 shadow-sm" : "py-3"
           }`}
@@ -27,7 +26,6 @@ export default function OrderCategoryMobile({ categories }: Props) {
         <Logo size={scrolled ? "sm" : "md"} />
       </div>
 
-      {/* Categorías */}
       <div className="relative z-50 border-b border-(--border) bg-white/95 backdrop-blur-md shadow-[0_8px_24px_rgba(15,23,42,0.06)]">
         <div className="flex gap-3 overflow-x-auto px-3 py-3 *:shrink-0 w-full">
           {categories.map((category) => (
